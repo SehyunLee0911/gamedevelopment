@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Game Dev | Sehyun Lee</title>
+<link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+<header class="hero">
+  <div class="hero__wrap">
+    <div class="hero__left">
+      <div class="hero__name">Sehyun Lee</div>
+      <div class="hero__avatar" aria-label="프로필 이미지"></div>
+      <div class="hero__text1">"Yet, aren’t we still chasing the dreams we once imagined?"</div>
+    </div>
+
+    <div class="hero__right">
+      <div class="hero__content">
+        <div class="hero__text2">
+          I’m a Game Developer focused on designing and implementing gameplay systems in Unity,
+          working primarily through academic and long-term project-based development. My work spans 2D and 3D games, from small experimental prototypes to team-based projects, where I iterate on mechanics through testing, feedback, and refinement.
+        </div>
+
+        <div class="hero__links">
+          <a href="mailto:zainangel@naver.com" class="hero-btn">✉</a>
+          <a href="https://www.linkedin.com/in/se-hyun-lee-08b1a2395/" target="_blank" rel="noopener" class="hero-btn">in</a>
+          <a href="https://www.youtube.com/@쟤나" target="_blank" rel="noopener" class="hero-btn">▶</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Portfolio / Projects Section -->
+<section class="work" id="work">
+  <div class="work__frame">
+    <!-- LEFT: Player + Thumbs (✅ thumbs moved here) -->
+    <div class="work__left">
+      <div class="work__video">
+        <!-- YouTube Player -->
+        <div id="ytPlayer" class="player player--yt"></div>
+
+        <!-- HTML5 Video Fallback -->
+        <video id="htmlVideo" class="player player--mp4" controls playsinline preload="metadata"></video>
+      </div>
+
+      <!-- ✅ Bottom thumbnail buttons (moved under video to center by player) -->
+      <div class="thumbs" id="thumbs">
+        <!-- JS가 썸네일 버튼 생성 -->
+      </div>
+
+      <button class="nav-arrow nav-arrow--left" type="button" id="prevBtn" aria-label="Previous">‹</button>
+      <button class="nav-arrow nav-arrow--right" type="button" id="nextBtn" aria-label="Next">›</button>
+    </div>
+
+    <!-- RIGHT: Description -->
+    <aside class="work__right" aria-live="polite">
+      <h3 class="work__title" id="workTitle">TITLE</h3>
+
+      <div class="work__tags" id="workTags">
+        <!-- JS가 태그 생성 -->
+      </div>
+
+      <p class="work__desc" id="workDesc"></p>
+
+      <ul class="work__bullets" id="workBullets"></ul>
+
+      <div class="work__links"></div>
+    </aside>
+  </div>
+</section>
+
+<!-- YouTube IFrame Player API (✅ keep near end of body) -->
+<script src="https://www.youtube.com/iframe_api"></script>
+<script src="js/work.js"></script>
+
+<!-- (optional) if you still use this file, keep it; otherwise remove to avoid double-loading -->
+<script src="work.js"></script>
+</body>
+</html>
