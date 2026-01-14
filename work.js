@@ -24,7 +24,7 @@
         "Interactions with NPC"
       ],
       youtubeId: "zRcMOqF0-zs", 
-      videoSrc: "vid/arpia.mp4",
+      //videoSrc: "vid/arpia.mp4",
       thumb: "img/arpia.png"
     },
     {
@@ -57,7 +57,7 @@
         "Typewritter System",
         "Korean/English Preference System"
       ],
-      youtubeId: "LA-hmOOiOIk", 
+      youtubeId: "YQ5NrwZwJ54", 
       //videoSrc: "vid/dokdo_game.mp4", // 파일명에 특수문자(') 제거 추천
       thumb: "img/37'131'.png"
     },
@@ -71,7 +71,7 @@
         "Slipstream Programming",
       ],
       youtubeId: "NBgTHzx-cQg", 
-      videoSrc: "vid/patriot_circuit.mp4",
+      //videoSrc: "vid/patriot_circuit.mp4",
       thumb: "img/patriot_circuit.png"
     }
   ];
