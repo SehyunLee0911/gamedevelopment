@@ -1,18 +1,17 @@
 (function () {
   // ====== 프로젝트 데이터 ======
-  // youtubeId: "zRcMOqF0-zs" 처럼 ID만
-  // videoSrc: mp4 파일 경로 또는 https URL (fallback용, "무조건 재생"의 핵심)
+  // youtubeId: 오류 153 방지를 위해 유효한 ID를 넣으세요.
+  // videoSrc: 100MB 이하로 압축된 파일이어야 GitHub Pages에서 안정적으로 재생됩니다.
   var projects = [
     {
       title: "Magic School Arpia - Remake (2022)",
       tags: ["Programming", "2D Art"],
-      desc:
-        "A remake version of Magic School Arpia from NCSOFT until Episode 0. It is unavailable for play due to copyright issues.",
+      desc: "A remake version of Magic School Arpia from NCSOFT until Episode 0. It is unavailable for play due to copyright issues.",
       bullets: [
         "Character Instantiation",
-		"Player Default Movement",
+        "Player Default Movement",
         "BGM/SFX Instantiation",
-		"UI Intergration",
+        "UI Intergration",
         "Sprite Layer System for Orthographic View",
         "Turn-based Duel System",
         "Quest System",
@@ -20,62 +19,57 @@
         "Scene Management",
         "Interactions with NPC"
       ],
-      start: 0,
+      youtubeId: "zRcMOqF0-zs", 
       videoSrc: "vid/arpia.mp4",
       thumb: "img/arpia.png"
     },
     {
       title: "Master of Fantasy - Remake (2022)",
       tags: ["Programming", "2D Art"],
-      desc:
-        "A remake version of Master of Fantasy from BuddyBuddy with minigames. It is unavailable for play due to copyright issues.",
+      desc: "A remake version of Master of Fantasy from BuddyBuddy with minigames. It is unavailable for play due to copyright issues.",
       bullets: [
         "Character Sprite & Animation Swapping",
-		"Player Default Movement",
-		"UI Intergration",
+        "Player Default Movement",
+        "UI Intergration",
         "BGM & SFX Integration",
         "Minigame Sprite Swap based on Difficulty",
-		"Interactions with NPC",
-        "Scene Management",
-        "Interactions with NPC"
+        "Interactions with NPC",
+        "Scene Management"
       ],
-      start: 0,
+      youtubeId: "JioguVBeclA&t=1s", 
       videoSrc: "vid/mof.mp4",
       thumb: "img/mof.png"
     },
-	{
+    {
       title: "37' 131' (2024)",
       tags: ["Programming", "Game Design"],
-      desc:
-        "An educational game to learn about Dokdo with simple clicker puzzles.",
+      desc: "An educational game to learn about Dokdo with simple clicker puzzles.",
       bullets: [
         "Camera Movement Designs",
-		"Dialogue System Implementation",
-		"Sprite Swap & Animation Coding",
+        "Dialogue System Implementation",
+        "Sprite Swap & Animation Coding",
         "X/O System with Health System",
         "BGM & SFX Integration",
-		"Typewritter System",
-        "Scene Management",
+        "Typewritter System",
         "Korean/English Preference System"
       ],
-      start: 0,
-      videoSrc: "vid/37'131'.mp4",
+      youtubeId: "LA-hmOOiOIk&t=2s", 
+      videoSrc: "vid/dokdo_game.mp4", // 파일명에 특수문자(') 제거 추천
       thumb: "img/37'131'.png"
     },
-	 {
+    {
       title: "Patriot Circuit (2025)",
       tags: ["Programming", "Game Design"],
-      desc:
-        "A racing game inside George Mason University.",
+      desc: "A racing game inside George Mason University.",
       bullets: [
         "Basic Kart Movement",
-		"Burger Kart Ability Design & Programming",
-		"Slipstream Programming",
+        "Burger Kart Ability Design & Programming",
+        "Slipstream Programming",
       ],
-      start: 0,
+      youtubeId: "NBgTHzx-cQg", 
       videoSrc: "vid/patriot_circuit.mp4",
       thumb: "img/patriot_circuit.png"
-    },
+    }
   ];
 
   // ====== DOM ======
@@ -92,51 +86,45 @@
 
   var currentIndex = 0;
   var thumbButtons = [];
-
-  // ====== YouTube Player ======
   var player = null;
   var ytReady = false;
-  var loadToken = 0; // 전환 중 race 방지
+  var loadToken = 0;
 
-function renderTags(tags) {
-  workTags.innerHTML = "";
-
-  for (var i = 0; i < tags.length; i++) {
-    var span = document.createElement("span");
-    span.className = "tag";
-
-    // 태그별 클래스 추가
-    var tagName = tags[i].toLowerCase().replace(/\s+/g, "-");
-    span.className += " tag--" + tagName;
-
-    span.appendChild(document.createTextNode(tags[i]));
-    workTags.appendChild(span);
+  // ====== 유틸리티 함수 ======
+  function renderTags(tags) {
+    workTags.innerHTML = "";
+    tags.forEach(function(tag) {
+      var span = document.createElement("span");
+      var tagName = tag.toLowerCase().replace(/\s+/g, "-");
+      span.className = "tag tag--" + tagName;
+      span.textContent = tag;
+      workTags.appendChild(span);
+    });
   }
-}
 
   function renderBullets(items) {
     workBullets.innerHTML = "";
-    for (var i = 0; i < items.length; i++) {
+    items.forEach(function(item) {
       var li = document.createElement("li");
-      li.appendChild(document.createTextNode(items[i]));
+      li.textContent = item;
       workBullets.appendChild(li);
-    }
+    });
   }
 
   function setActiveThumb(index) {
-    for (var i = 0; i < thumbButtons.length; i++) {
-      thumbButtons[i].className = (i === index) ? "thumb-btn is-active" : "thumb-btn";
-    }
+    thumbButtons.forEach(function(btn, i) {
+      btn.className = (i === index) ? "thumb-btn is-active" : "thumb-btn";
+    });
   }
 
   function updateRightPanel(p) {
-    workTitle.innerHTML = p.title;
-    workDesc.innerHTML = p.desc;
+    workTitle.textContent = p.title;
+    workDesc.textContent = p.desc;
     renderTags(p.tags);
     renderBullets(p.bullets);
   }
 
-  // ====== Player switching ======
+  // ====== 플레이어 제어 ======
   function showYouTubeLayer() {
     ytContainer.style.display = "block";
     htmlVideo.style.display = "none";
@@ -147,141 +135,103 @@ function renderTags(tags) {
     htmlVideo.style.display = "block";
   }
 
-  function stopMp4() {
-    try {
-      htmlVideo.pause();
-      htmlVideo.removeAttribute("src");
-      htmlVideo.load();
-    } catch (e) {}
-  }
-
   function playMp4(src) {
     showMp4Layer();
-    stopMp4();
-    if (!src) {
-      // fallback 소스가 없으면 플레이어는 뜨지만 재생할 게 없음
-      return;
-    }
+    if (!src) return;
+    htmlVideo.pause();
     htmlVideo.src = src;
     htmlVideo.load();
-    // 자동재생은 정책상 막힐 수 있으니 강제하지 않음(플레이어는 항상 표시)
+    htmlVideo.play().catch(function(e) { console.log("Auto-play blocked"); });
   }
 
-  function loadYouTubeOrFallback(p, myToken) {
-    // 1) YouTube 레이어 먼저 시도
-    showYouTubeLayer();
-
-    // 2) 유튜브 플레이어가 준비 안 됐거나, videoId가 없으면 바로 mp4
-    if (!ytReady || !player || !p.youtubeId) {
+  function loadVideo(p) {
+    var myToken = ++loadToken;
+    
+    // 유튜브 ID가 없는 경우 즉시 MP4 재생
+    if (!p.youtubeId) {
       playMp4(p.videoSrc);
       return;
     }
 
-    // 3) YouTube 로드 시도
-    try {
+    showYouTubeLayer();
+
+    if (ytReady && player && player.loadVideoById) {
       player.loadVideoById({
         videoId: p.youtubeId,
         startSeconds: p.start || 0
       });
-    } catch (e) {
-      // 로드 자체 실패하면 mp4
+
+      // 153 오류 등 로딩 실패 대비 타이머 (2초 내에 시작 안 되면 MP4 전환)
+      setTimeout(function() {
+        if (myToken !== loadToken) return;
+        var state = -999;
+        try { state = player.getPlayerState(); } catch(e) {}
+        if (state === -1 || state === 5 || state === -999) {
+          console.warn("YouTube fallback to MP4...");
+          playMp4(p.videoSrc);
+        }
+      }, 2000);
+    } else {
+      // API 미준비 시 MP4 재생
       playMp4(p.videoSrc);
-      return;
     }
-
-    // 4) “일정 시간 내 재생/준비 신호가 없으면” mp4로 전환 (환경 차단 대비)
-    // 유튜브는 외부 플레이어 실패를 100% 이벤트로 안 주는 경우가 있어 timeout이 안전장치입니다.
-    window.setTimeout(function () {
-      if (myToken !== loadToken) return;
-
-      // 플레이어 상태가 -1(UNSTARTED)에서 오래 머물면 실패로 간주
-      var st = -999;
-      try { st = player.getPlayerState(); } catch (e2) {}
-
-      // -1: unstarted / 5: cued 정도에서 멈춘 채 진행이 없으면 fallback
-      if (st === -1 || st === 5 || st === -999) {
-        playMp4(p.videoSrc);
-      }
-    }, 1500);
   }
 
   function showProject(index) {
     if (index < 0) index = projects.length - 1;
     if (index >= projects.length) index = 0;
-
     currentIndex = index;
-    loadToken++;
 
     var p = projects[index];
     updateRightPanel(p);
     setActiveThumb(index);
-
-    // mp4는 매번 정리 후 새로 로드
-    stopMp4();
-
-    // 유튜브 먼저 시도 → 실패하면 mp4
-    loadYouTubeOrFallback(p, loadToken);
+    loadVideo(p);
   }
 
+  // ====== 초기화 ======
   function buildThumbs() {
     thumbs.innerHTML = "";
-    thumbButtons = [];
-
-    for (var i = 0; i < projects.length; i++) {
-      (function (idx) {
-        var btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "thumb-btn";
-        btn.setAttribute("aria-label", "Open project " + (idx + 1));
-
-        var img = document.createElement("img");
-        img.src = projects[idx].thumb;
-        img.alt = projects[idx].title;
-
-        btn.appendChild(img);
-        btn.onclick = function () { showProject(idx); };
-
-        thumbs.appendChild(btn);
-        thumbButtons.push(btn);
-      })(i);
-    }
+    projects.forEach(function(project, i) {
+      var btn = document.createElement("button");
+      btn.className = "thumb-btn";
+      var img = document.createElement("img");
+      img.src = project.thumb;
+      img.alt = project.title;
+      btn.appendChild(img);
+      btn.onclick = function() { showProject(i); };
+      thumbs.appendChild(btn);
+      thumbButtons.push(btn);
+    });
   }
 
-  // arrows
   prevBtn.onclick = function () { showProject(currentIndex - 1); };
   nextBtn.onclick = function () { showProject(currentIndex + 1); };
 
-  // ====== YouTube API callback (필수: 전역) ======
+  // ====== YouTube API (전역 함수) ======
   window.onYouTubeIframeAPIReady = function () {
     player = new YT.Player("ytPlayer", {
       width: "100%",
       height: "100%",
-      videoId: projects[0].youtubeId || "",
-      host: "https://www.youtube-nocookie.com",
       playerVars: {
         rel: 0,
         playsinline: 1,
-        modestbranding: 1
+        modestbranding: 1,
+        enablejsapi: 1,
+        origin: window.location.origin // 핵심: 오류 153 방지
       },
       events: {
         onReady: function () {
           ytReady = true;
-          // 초기 렌더
           showProject(0);
         },
         onError: function () {
-          // 임베드 금지(101/150)든, 기타 오류든 → mp4로 즉시 전환
-          var p = projects[currentIndex];
-          playMp4(p.videoSrc);
+          playMp4(projects[currentIndex].videoSrc);
         }
       }
     });
   };
 
-  // ====== Init UI (YouTube 준비 전에도 우측/썸네일은 보이게) ======
   buildThumbs();
-  // YouTube 준비 전에는 우측 패널만 먼저 세팅
   updateRightPanel(projects[0]);
   setActiveThumb(0);
-  // 플레이어는 유튜브 준비 후 showProject(0)에서 처리
 })();
