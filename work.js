@@ -2,6 +2,10 @@
   // ====== 프로젝트 데이터 ======
   // youtubeId: 오류 153 방지를 위해 유효한 ID를 넣으세요.
   // videoSrc: 100MB 이하로 압축된 파일이어야 GitHub Pages에서 안정적으로 재생됩니다.
+
+  /* eslint-disable */
+  /* global YT */	
+	
   var projects = [
     {
       title: "Magic School Arpia - Remake (2022)",
@@ -36,7 +40,7 @@
         "Interactions with NPC",
         "Scene Management"
       ],
-      youtubeId: "JioguVBeclA&t=1s", 
+      youtubeId: "JioguVBeclA", 
       videoSrc: "vid/mof.mp4",
       thumb: "img/mof.png"
     },
@@ -53,7 +57,7 @@
         "Typewritter System",
         "Korean/English Preference System"
       ],
-      youtubeId: "LA-hmOOiOIk&t=2s", 
+      youtubeId: "LA-hmOOiOIk", 
       videoSrc: "vid/dokdo_game.mp4", // 파일명에 특수문자(') 제거 추천
       thumb: "img/37'131'.png"
     },
@@ -207,24 +211,30 @@
   prevBtn.onclick = function () { showProject(currentIndex - 1); };
   nextBtn.onclick = function () { showProject(currentIndex + 1); };
 
-  // ====== YouTube API (전역 함수) ======
+// ====== YouTube API (전역 함수) ======
   window.onYouTubeIframeAPIReady = function () {
+    console.log("YouTube API Ready"); // 확인용 로그
     player = new YT.Player("ytPlayer", {
       width: "100%",
       height: "100%",
-      playerVars: {
-        rel: 0,
-        playsinline: 1,
-        modestbranding: 1,
-        enablejsapi: 1,
-        origin: window.location.origin // 핵심: 오류 153 방지
-      },
+      host: "https://www.youtube.com", // nocookie 대신 일반 도메인 명시
+	  playerVars: {
+    	rel: 0,
+    	playsinline: 1,
+    	modestbranding: 1,
+    	enablejsapi: 1,
+    	// window.location.origin 대신 실제 사이트 주소를 따옴표 안에 넣으세요
+    	origin: "https://sehyunlee0911.github.io" 
+},
       events: {
         onReady: function () {
           ytReady = true;
+          console.log("Player Ready");
           showProject(0);
         },
-        onError: function () {
+        onError: function (e) {
+          // 오류 153 등이 발생하면 여기로 들어옵니다.
+          console.error("YouTube Error Code:", e.data);
           playMp4(projects[currentIndex].videoSrc);
         }
       }
