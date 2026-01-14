@@ -41,7 +41,7 @@
         "Scene Management"
       ],
       youtubeId: "JioguVBeclA", 
-      videoSrc: "vid/mof.mp4",
+      //videoSrc: "vid/mof.mp4",
       thumb: "img/mof.png"
     },
     {
@@ -58,7 +58,7 @@
         "Korean/English Preference System"
       ],
       youtubeId: "LA-hmOOiOIk", 
-      videoSrc: "vid/dokdo_game.mp4", // 파일명에 특수문자(') 제거 추천
+      //videoSrc: "vid/dokdo_game.mp4", // 파일명에 특수문자(') 제거 추천
       thumb: "img/37'131'.png"
     },
     {
