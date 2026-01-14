@@ -24,8 +24,8 @@
         "Interactions with NPC"
       ],
       youtubeId: "zRcMOqF0-zs", 
-      //videoSrc: "vid/arpia.mp4",
-      thumb: "img/arpia.png"
+      thumb: "img/arpia.png",
+	  videoSrc: "vid/arpia.mp4"
     },
     {
       title: "Master of Fantasy - Remake (2022)",
@@ -41,8 +41,8 @@
         "Scene Management"
       ],
       youtubeId: "JioguVBeclA", 
-      //videoSrc: "vid/mof.mp4",
-      thumb: "img/mof.png"
+      thumb: "img/mof.png",
+	  videoSrc: "vid/mof.mp4"
     },
     {
       title: "37' 131' (2024)",
@@ -58,8 +58,8 @@
         "Korean/English Preference System"
       ],
       youtubeId: "YQ5NrwZwJ54", 
-      //videoSrc: "vid/dokdo_game.mp4", // 파일명에 특수문자(') 제거 추천
-      thumb: "img/37'131'.png"
+      thumb: "img/37'131'.png",
+	  videoSrc: "vid/37'131'.mp4" // 파일명에 특수문자(') 제거 추천
     },
     {
       title: "Patriot Circuit (2025)",
@@ -71,8 +71,8 @@
         "Slipstream Programming",
       ],
       youtubeId: "NBgTHzx-cQg", 
-      //videoSrc: "vid/patriot_circuit.mp4",
-      thumb: "img/patriot_circuit.png"
+      thumb: "img/patriot_circuit.png",
+	  videoSrc: "vid/patriot_circuit.mp4"
     }
   ];
 
