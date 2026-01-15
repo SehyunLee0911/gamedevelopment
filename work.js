@@ -73,6 +73,25 @@
       youtubeId: "NBgTHzx-cQg", 
       thumb: "img/patriot_circuit.png",
 	  videoSrc: "vid/patriot_circuit.mp4"
+    },
+	{
+      title: "Fruits Go Boom (2025)",
+      tags: ["Programming", "Game Design", "2D Art"],
+      desc: "An old style 2D Platformer shooting game. Ready? Aim, Shoot! Fruits Go Boom!",
+      bullets: [
+        "Game Design Document Develop",
+        "Basic Tank & Enemy Movement",
+        "Trajectory Lines & Ammo Functions",
+		"Dialogue & Achievement Systems",
+		"Game Reset Function",
+		"Tutorial System Setup",
+		"Boss Attack & Movement",
+	    "Tank & Level Unlock Setup",
+		"UI, BGM & SFX Intergration"
+      ],
+      youtubeId: "7NO5quQptqE", 
+      thumb: "img/fruits_go_boom.png",
+	  //videoSrc: "vid/patriot_circuit.mp4"
     }
   ];
 
