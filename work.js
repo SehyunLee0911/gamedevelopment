@@ -21,7 +21,8 @@
         "Quest System",
         "Typewriter Effects",
         "Scene Management",
-        "Interactions with NPC"
+        "Interactions with NPC",
+		"Instatinated Episode 0 from Original Game",
       ],
       youtubeId: "zRcMOqF0-zs", 
       thumb: "img/arpia.png",
@@ -68,6 +69,7 @@
       bullets: [
         "Basic Kart Movement",
         "Burger Kart Ability Design & Programming",
+		"Burger Kart Ability: Throws a giant mustard & ketchup ball that boosts the Burger Kart and slips other karts",
         "Slipstream Programming",
       ],
       youtubeId: "NBgTHzx-cQg", 
