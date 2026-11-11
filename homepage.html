@@ -2,73 +2,551 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Game Dev | Sehyun Lee</title>
-<link rel="stylesheet" href="style.css"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sehyun Lee | UI/UX Designer &amp; Interactive Product Prototyper</title>
+<meta name="description" content="Portfolio of Sehyun Lee: UI/UX design and interactive prototyping, from Unity gameplay systems to a working travel companion app.">
+<meta property="og:title" content="Sehyun Lee | UI/UX Designer &amp; Interactive Product Prototyper">
+<meta property="og:description" content="I design it. I build it. TopTrip mobile prototype, visual campaigns and Unity games.">
+<meta property="og:image" content="https://sehyunlee0911.github.io/gamedevelopment/assets/img/tt_home.webp">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#F7F7F4">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+@font-face{font-family:"SUIT"; src:url("assets/fonts/SUIT-Variable.woff2") format("woff2"); font-style:normal; font-weight:100 900; font-display:swap}
+/* Layout: editorial column (1120px). Hero 55/45 (copy | three app screens), selected work as a
+   bento (TopTrip full width, then 2-up), games 3-up, about, contact. TopTrip case study is a hash view. */
+:root{
+  --bg:#F7F7F4; --card:#FFFFFF; --ink:#202733; --muted:#56616E; --accent:#276C91; --line:#E1E5E7;
+  --tint:#EDF3F7; --slot:#9DB8CB;
+  --font-en:"Manrope", "Helvetica Neue", Arial, sans-serif;
+  --font-ko:"SUIT", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --r-card:18px; --r-ctl:10px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0; background:var(--bg); color:var(--ink); font:400 1rem/1.65 var(--font-en), var(--font-ko); -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:transparent}
+:lang(ko) body{word-break:keep-all}
+button,input{font-family:inherit}
+.band{padding-left:max(20px, env(safe-area-inset-left, 0px)); padding-right:max(20px, env(safe-area-inset-right, 0px))}
+.wrap{max-width:1120px; margin:0 auto}
+a{color:inherit}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{text-wrap:balance}
+:focus-visible{outline:3px solid var(--accent); outline-offset:3px; border-radius:6px}
+.skip{position:absolute; left:-999px; top:8px; z-index:30; background:var(--ink); color:#fff; padding:10px 14px; border-radius:8px}
+.skip:focus{left:20px}
+.meta{font-size:.875rem; font-weight:600; line-height:1.5; color:var(--accent)}
+.muted{color:var(--muted)}
+
+/* ---------- Preview notice ---------- */
+.notice{background:var(--ink); color:#fff; font-size:.875rem}
+.notice .wrap{display:flex; gap:10px; align-items:center; padding-block:9px}
+.notice i{display:inline-block; width:22px; height:14px; border:1.5px dashed #9DB8CB; border-radius:4px; flex:none}
+
+/* ---------- Header ---------- */
+body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top, 0px); z-index:10; background:var(--bg)}
+.nav{position:sticky; top:env(safe-area-inset-top, 0px); z-index:9; background:rgba(247,247,244,.94); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex; align-items:center; gap:10px; min-height:64px; position:relative}
+.logo{font:800 1.05rem/1 var(--font-en); letter-spacing:-0.02em; text-decoration:none; margin-right:auto; padding:10px 0}
+.menu{display:flex; gap:2px}
+.menu a{display:inline-flex; align-items:center; min-height:44px; padding:0 12px; border-radius:var(--r-ctl); text-decoration:none; font-weight:600; font-size:.95rem; color:var(--muted); transition:color 150ms ease, background-color 150ms ease}
+.menu a:hover{color:var(--ink); background:var(--line)}
+.lang{display:inline-flex; border:1px solid var(--line); border-radius:999px; padding:3px; background:var(--card)}
+.lang button{border:0; background:transparent; font:700 .8rem/1 var(--font-en); color:var(--muted); min-height:38px; min-width:42px; border-radius:999px; cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink); color:#fff}
+.menu-btn{display:none; width:44px; height:44px; border:1px solid var(--line); background:var(--card); border-radius:var(--r-ctl); cursor:pointer; align-items:center; justify-content:center}
+.menu-btn svg{width:20px; height:20px}
+
+/* ---------- Hero ---------- */
+.hero{display:grid; grid-template-columns:minmax(0,55fr) minmax(0,45fr); gap:clamp(28px,5vw,64px); align-items:center; padding-block:clamp(48px,7vw,88px) clamp(40px,6vw,72px)}
+.hero__copy{display:grid; gap:20px; align-content:center}
+.hero-title{font-size:clamp(2.375rem,5.5vw,4.75rem); line-height:1.08; letter-spacing:-0.045em; font-weight:800}
+:lang(ko) .hero-title{font-size:clamp(2.125rem,4.8vw,4.125rem); line-height:1.16; letter-spacing:-0.035em}
+.body-copy{font-size:clamp(1rem,1.2vw,1.125rem); line-height:1.7; max-width:62ch; color:var(--muted)}
+.badges{display:flex; flex-wrap:wrap; gap:8px; padding:0; margin:0; list-style:none}
+.badges li{border:1px solid var(--line); background:var(--card); border-radius:999px; padding:6px 12px; font-size:.875rem; font-weight:600}
+.ctas{display:flex; flex-wrap:wrap; gap:10px}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:48px; padding:0 20px; border-radius:var(--r-ctl); border:1px solid var(--ink); font-weight:700; font-size:.95rem; text-decoration:none; cursor:pointer; transition:background-color 150ms ease, border-color 150ms ease, color 150ms ease}
+.btn--solid{background:var(--ink); color:#fff}
+.btn--solid:hover{background:var(--accent); border-color:var(--accent)}
+.btn--ghost{background:var(--card); color:var(--ink); border-color:var(--line)}
+.btn--ghost:hover{border-color:var(--ink)}
+.screens{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; align-items:end}
+.screens figure{margin:0; display:grid; gap:8px}
+.screens figure:nth-child(2){transform:translateY(-24px)}
+.screens figcaption{font-size:.8125rem; font-weight:600; color:var(--muted); text-align:center}
+
+/* ---------- Asset slot (where a real file goes) ---------- */
+.slot{position:relative; display:grid; place-items:center; align-content:center; gap:6px; text-align:center; padding:14px;
+  background:repeating-linear-gradient(135deg, var(--tint) 0 10px, #F4F8FA 10px 20px);
+  border:1.5px dashed var(--slot); border-radius:var(--r-ctl); color:var(--accent); min-height:120px; max-width:100%}
+.slot b{font-size:.8125rem; font-weight:700}
+.slot code{font:500 .75rem/1.35 var(--font-en), var(--font-ko); color:var(--muted); word-break:break-all}
+.shot{display:block; width:100%; height:auto; aspect-ratio:540/1115; object-fit:cover; border-radius:22px; border:6px solid var(--ink); background:var(--card)}
+.lm{display:block; width:100%; height:100%; object-fit:cover; border-radius:var(--r-ctl); min-height:0}
+.demo{display:grid; grid-template-columns:minmax(0,280px) minmax(0,1fr); gap:24px; align-items:start}
+.demo video{width:100%; height:auto; aspect-ratio:360/744; border-radius:22px; border:6px solid var(--ink); background:#000; display:block}
+.demo ol{margin:0; padding-left:20px; display:grid; gap:6px}
+.gallery{row-gap:28px}
+.slot--phone{aspect-ratio:9/19.5; border-radius:22px; min-height:0}
+.slot--wide{aspect-ratio:16/10; min-height:0}
+.slot--poster{aspect-ratio:3/4; min-height:0}
+
+/* ---------- Sections ---------- */
+.section{padding-block:clamp(56px,8vw,112px); border-top:1px solid var(--line)}
+.section__head{display:flex; justify-content:space-between; align-items:end; gap:16px; flex-wrap:wrap; margin-bottom:28px}
+.section-title{font-size:clamp(1.625rem,3vw,2.5rem); line-height:1.2; font-weight:700; letter-spacing:-0.025em}
+.section__head p{max-width:52ch}
+
+/* ---------- Work ---------- */
+.work{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px}
+.card{background:var(--card); border:1px solid var(--line); border-radius:var(--r-card); overflow:hidden; display:flex; flex-direction:column; color:inherit; text-decoration:none; transition:transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease}
+a.card:hover{transform:translateY(-3px); box-shadow:0 8px 24px rgba(32,39,51,.06); border-color:#cfd7dc}
+.card--feature{grid-column:1/-1; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+.card__media{padding:16px; background:var(--bg); border-bottom:1px solid var(--line); min-width:0}
+.card--feature .card__media{border-bottom:0; border-left:1px solid var(--line); order:2; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; align-items:center}
+.card__body{padding:clamp(20px,3vw,32px); display:grid; gap:12px; align-content:start; min-width:0}
+.project-title{font-size:clamp(1.5rem,2.5vw,2.125rem); line-height:1.22; font-weight:700; letter-spacing:-0.025em}
+.card-title{font-size:clamp(1.25rem,2vw,1.625rem); line-height:1.3; font-weight:700; letter-spacing:-0.015em}
+.card__text{color:var(--muted); max-width:60ch}
+.more{display:inline-flex; align-items:center; gap:6px; font-weight:700; color:var(--accent); margin-top:4px}
+.more svg{width:16px; height:16px; transition:transform 150ms ease}
+a.card:hover .more svg{transform:translateX(3px)}
+.flow3{display:grid; grid-template-columns:1fr auto 1fr auto 1fr; gap:6px; align-items:center}
+.flow3 .slot{aspect-ratio:3/4}
+.flow3 svg{width:16px; height:16px; color:var(--muted)}
+.trio{display:grid; grid-template-columns:1.25fr 1fr; grid-template-rows:1fr 1fr; gap:8px}
+.trio > :first-child{grid-row:span 2}
+.trio--posters{grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:auto}
+.trio--posters > :first-child{grid-row:auto}
+.trio--posters .lm{aspect-ratio:707/1000; height:auto}
+.trio img{width:100%; height:100%; object-fit:cover; border-radius:var(--r-ctl); display:block; min-height:0}
+.trio .slot{min-height:0; height:100%}
+
+/* ---------- Games ---------- */
+.games{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px}
+.game{background:var(--card); border:1px solid var(--line); border-radius:var(--r-card); overflow:hidden; display:flex; flex-direction:column}
+.game img{display:block; width:100%; height:auto; aspect-ratio:16/10; object-fit:cover; border-bottom:1px solid var(--line)}
+.game__body{padding:20px; display:grid; gap:10px; align-content:start; flex:1}
+.game dl{margin:0; display:grid; gap:8px}
+.game dt{font-size:.8125rem; font-weight:700; color:var(--muted)}
+.game dd{margin:0}
+.game a{font-weight:700; color:var(--accent); text-decoration:none; display:inline-flex; align-items:center; min-height:44px; margin-top:auto}
+.game a:hover{text-decoration:underline}
+.archive{margin-top:24px; background:var(--card); border:1px solid var(--line); border-radius:var(--r-card); padding:18px 20px; display:grid; gap:6px}
+.archive h3{font-size:1rem}
+.archive ul{margin:0; padding-left:18px; color:var(--muted)}
+
+/* ---------- About / contact ---------- */
+.about{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(24px,5vw,64px)}
+.about__lead{font-size:clamp(1.3rem,2.4vw,1.75rem); line-height:1.4; font-weight:700; letter-spacing:-0.02em}
+.path{margin:0; padding:0; list-style:none; display:grid; gap:10px}
+.path li{display:grid; grid-template-columns:28px 1fr; gap:12px; align-items:start; background:var(--card); border:1px solid var(--line); border-radius:var(--r-ctl); padding:14px 16px}
+.path span{width:28px; height:28px; border-radius:50%; background:var(--tint); color:var(--accent); font-weight:800; display:grid; place-items:center; font-size:.85rem}
+.edu{margin-top:18px; font-weight:600}
+.contact{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); gap:28px; align-items:start}
+.links{display:grid; gap:10px}
+.row{display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px; min-height:56px; background:var(--card); border:1px solid var(--line); border-radius:var(--r-ctl); padding:8px 16px}
+.row > span:first-child{min-width:80px; color:var(--muted); font-size:.875rem; font-weight:600}
+.row code{font:600 1rem/1.3 var(--font-en); user-select:all; word-break:break-all}
+.row a{font-weight:700; color:var(--accent); text-decoration:none; display:inline-flex; align-items:center; min-height:44px}
+.row a:hover{text-decoration:underline}
+.mini{min-height:40px; padding:0 14px; font-size:.875rem}
+.status{color:var(--accent); font-size:.875rem; font-weight:600}
+footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--muted); font-size:.875rem}
+
+/* ---------- Case study ---------- */
+.case{padding-block:clamp(32px,6vw,72px)}
+.back{display:inline-flex; align-items:center; gap:6px; min-height:44px; text-decoration:none; color:var(--muted); font-weight:700}
+.back:hover{color:var(--ink)}
+.case h1{font-size:clamp(2.125rem,5vw,3.75rem); line-height:1.1; font-weight:800; letter-spacing:-0.04em; margin:14px 0}
+:lang(ko) .case h1{letter-spacing:-0.03em}
+.facts{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--r-ctl); overflow:hidden; margin:28px 0}
+.facts div{background:var(--card); padding:14px 16px; display:grid; gap:4px; min-width:0}
+.facts dt{font-size:.8125rem; color:var(--muted); font-weight:600}
+.facts dd{margin:0; font-weight:700; font-size:.95rem}
+.todo{color:var(--accent); font-weight:600; border-bottom:1.5px dashed var(--slot)}
+.gallery{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(12px,3vw,32px); padding:clamp(20px,4vw,40px); background:var(--card); border:1px solid var(--line); border-radius:var(--r-card); margin-bottom:56px}
+.gallery figure{margin:0; display:grid; gap:10px; justify-items:center}
+.gallery .shot{width:min(100%,220px)}
+.gallery figcaption{font-weight:700; font-size:.9rem}
+.case__grid{display:grid; grid-template-columns:200px minmax(0,1fr); gap:clamp(24px,5vw,64px); align-items:start}
+.toc{position:sticky; top:calc(env(safe-area-inset-top, 0px) + 84px); display:grid; gap:2px}
+.toc a{color:var(--muted); text-decoration:none; padding:8px 12px; border-left:2px solid var(--line); font-size:.92rem; font-weight:600}
+.toc a:hover{color:var(--ink); border-left-color:var(--accent)}
+.chapters{display:grid; gap:56px}
+.chapter{scroll-margin-top:88px; display:grid; gap:14px}
+.chapter h2{font-size:clamp(1.4rem,2.4vw,1.75rem); font-weight:700; letter-spacing:-0.02em}
+.chapter p,.chapter li{max-width:66ch}
+.chapter ul{margin:0; padding-left:20px; display:grid; gap:6px}
+.flows{display:grid; gap:10px}
+.flowrow{display:grid; grid-template-columns:96px minmax(0,1fr); gap:12px; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:var(--r-ctl); padding:12px 14px}
+.flowrow b{font-size:.9rem}
+.steps{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:0; padding:0; list-style:none}
+.steps li{background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:4px 10px; font-size:.875rem; font-weight:600}
+.steps li + li::before{content:"›"; color:var(--muted); margin-right:8px; margin-left:-2px}
+.join{font-size:.875rem; color:var(--muted)}
+.decisions{display:grid; gap:12px; counter-reset:d}
+.decision{background:var(--card); border:1px solid var(--line); border-radius:var(--r-card); padding:18px 20px; display:grid; gap:10px}
+.decision h3{font-size:1.1rem; line-height:1.35}
+.decision h3::before{counter-increment:d; content:counter(d) ". "; color:var(--accent)}
+.decision dl{margin:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px}
+.decision dl div{background:var(--bg); border-radius:8px; padding:8px 10px; min-width:0}
+.decision dt{font-size:.75rem; font-weight:700; color:var(--muted)}
+.decision dd{margin:0; font-size:.85rem}
+.split{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
+.split div{background:var(--card); border:1px solid var(--line); border-radius:var(--r-ctl); padding:16px 18px}
+.split h3{font-size:1rem; margin-bottom:6px}
+.pipe{display:flex; flex-wrap:wrap; gap:8px; align-items:center}
+.pipe span{background:var(--card); border:1px solid var(--line); border-radius:8px; padding:8px 12px; font-weight:600; font-size:.9rem}
+.pipe svg{width:16px; height:16px; color:var(--muted)}
+.honest{background:var(--tint); border-radius:var(--r-ctl); padding:14px 16px; font-weight:600}
+
+@media (max-width:1023px){
+  .card--feature{grid-template-columns:1fr}
+  .card--feature .card__media{order:0; border-left:0; border-bottom:1px solid var(--line)}
+  .games{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .games .game:first-child{grid-column:1/-1}
+  .case__grid{grid-template-columns:1fr}
+  .toc{display:none}
+  .facts{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:767px){
+  .menu-btn{display:inline-flex}
+  .menu{display:none; position:absolute; top:100%; left:0; right:0; flex-direction:column; background:var(--card); border:1px solid var(--line); border-radius:var(--r-ctl); padding:6px; box-shadow:0 12px 28px rgba(32,39,51,.08)}
+  .menu.open{display:flex}
+  .hero{grid-template-columns:1fr}
+  .screens figure:nth-child(2){transform:none}
+  .work,.games,.about,.contact,.split{grid-template-columns:1fr}
+  .games .game:first-child{grid-column:auto}
+  .facts{grid-template-columns:1fr 1fr}
+  .gallery{grid-template-columns:repeat(3,minmax(0,1fr)); padding:14px; gap:10px}
+  .decision dl{grid-template-columns:1fr 1fr}
+  .demo{grid-template-columns:1fr}
+  .demo video{max-width:280px}
+  .flowrow{grid-template-columns:1fr}
+  .flow3{grid-template-columns:1fr; justify-items:stretch}
+  .flow3 svg{transform:rotate(90deg); justify-self:center}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important; transition-duration:.01ms!important}
+}
+</style>
 </head>
-
 <body>
-<header class="hero">
-  <div class="hero__wrap">
-    <div class="hero__left">
-      <div class="hero__name">Sehyun Lee</div>
-      <div class="hero__avatar" aria-label="프로필 이미지"></div>
-      <div class="hero__text1">"Yet, aren’t we still chasing the dreams we once imagined?"</div>
-    </div>
 
-    <div class="hero__right">
-      <div class="hero__content">
-        <div class="hero__text2">
-          I’m a Game Developer focused on designing and implementing gameplay systems in Unity,
-          working primarily through academic and long-term project-based development. My work spans 2D and 3D games, from small experimental prototypes to team-based projects, where I iterate on mechanics through testing, feedback, and refinement.
-        </div>
 
-        <div class="hero__links">
-          <a href="mailto:zainangel@naver.com" class="hero-btn">✉</a>
-          <a href="https://www.linkedin.com/in/se-hyun-lee-08b1a2395/" target="_blank" rel="noopener" class="hero-btn">in</a>
-          <a href="https://www.youtube.com/@쟤나" target="_blank" rel="noopener" class="hero-btn">▶</a>
-        </div>
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+<header class="nav band">
+  <div class="wrap">
+    <a class="logo" href="#home">Sehyun Lee</a>
+    <nav aria-label="Main">
+      <div class="menu" id="menu">
+        <a href="#work" data-i18n="navWork">Work</a>
+        <a href="#about" data-i18n="navAbout">About</a>
+        <!-- TODO: add <a href="assets/resume/Sehyun_Lee_Resume_EN.pdf">Resume</a> when the PDF exists -->
+        <a href="#contact" data-i18n="navContact">Contact</a>
       </div>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="ko" aria-pressed="false">KR</button>
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
     </div>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
   </div>
 </header>
 
-<!-- Portfolio / Projects Section -->
-<section class="work" id="work">
-  <div class="work__frame">
-    <!-- LEFT: Player + Thumbs (✅ thumbs moved here) -->
-    <div class="work__left">
-      <div class="work__video">
-        <!-- YouTube Player (클릭 시 로드) -->
-        <div id="ytPlayer" class="player"></div>
+<main id="main">
+<div id="view-home">
+  <section class="band"><div class="wrap hero">
+    <div class="hero__copy">
+      <p class="meta">UI/UX DESIGN · INTERACTIVE PROTOTYPING</p>
+      <h1 class="hero-title" data-i18n="heroH">I design it. I build it.</h1>
+      <p class="body-copy" data-i18n="heroP">From gameplay systems to functional mobile prototypes, I combine visual design and interactive technology to build experiences people can use.</p>
+      <ul class="badges" aria-label="Focus areas"><li>UI/UX</li><li>Interactive Prototyping</li><li>Visual Design</li></ul>
+      <div class="ctas">
+        <a class="btn btn--solid" href="#work" data-i18n="cta1">Explore my work</a>
+        <a class="btn btn--ghost" href="#toptrip" data-i18n="cta2">Read the TopTrip case study</a>
       </div>
-
-      <!-- ✅ Bottom thumbnail buttons (moved under video to center by player) -->
-      <div class="thumbs" id="thumbs">
-        <!-- JS가 썸네일 버튼 생성 -->
-      </div>
-
-      <button class="nav-arrow nav-arrow--left" type="button" id="prevBtn" aria-label="Previous">‹</button>
-      <button class="nav-arrow nav-arrow--right" type="button" id="nextBtn" aria-label="Next">›</button>
     </div>
+    <div class="screens" aria-label="TopTrip app screens">
+      <figure><img class="shot" src="assets/img/tt_home.webp" width="540" height="1115" alt="TopTrip traveler home showing the 14-day trip, quick actions and today’s notices" fetchpriority="high"><figcaption data-i18n="capHome">Traveler home</figcaption></figure>
+      <figure><img class="shot" src="assets/img/tt_map.webp" width="540" height="1115" alt="TopTrip day 9 schedule with route map to Plitvice Lakes"><figcaption data-i18n="capMap">Trip map</figcaption></figure>
+      <figure><img class="shot" src="assets/img/tt_meet.webp" width="540" height="1115" alt="Meeting alert in group chat, confirmed by 1 of 1 traveler"><figcaption data-i18n="capAtt">Meeting check-in</figcaption></figure>
+    </div>
+  </div></section>
 
-    <!-- RIGHT: Description -->
-    <aside class="work__right" aria-live="polite">
-      <h3 class="work__title" id="workTitle">TITLE</h3>
+  <section class="band section" id="work" aria-labelledby="work-h"><div class="wrap">
+    <div class="section__head">
+      <h2 class="section-title" id="work-h" data-i18n="workH">Selected work</h2>
+      <p class="muted" data-i18n="workP">What I designed, what I built, and where each project stands today.</p>
+    </div>
+    <div class="work">
+      <a class="card card--feature" href="#toptrip">
+        <div class="card__media" aria-hidden="true">
+          <img class="shot" src="assets/img/tt_home.webp" width="540" height="1115" alt="" loading="lazy">
+          <img class="shot" src="assets/img/tt_map.webp" width="540" height="1115" alt="" loading="lazy">
+          <img class="shot" src="assets/img/tt_meet.webp" width="540" height="1115" alt="" loading="lazy">
+        </div>
+        <div class="card__body">
+          <p class="meta">Mobile UX/UI · Interactive Prototype · AI-Assisted Development</p>
+          <h3 class="project-title">TopTrip: Travel Companion App</h3>
+          <p class="card__text" data-i18n="ttCard">TopTrip is a functional mobile prototype designed to help group travelers and tour guides manage itineraries, meeting points, announcements, and attendance.</p>
+          <span class="more"><span data-i18n="readCase">Read the case study</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
 
-      <div class="work__tags" id="workTags">
-        <!-- JS가 태그 생성 -->
+      
+
+      <article class="card">
+        <div class="card__media">
+          <div class="trio trio--posters">
+            <img class="lm" src="assets/img/lm_en_bunsik.webp" data-en="assets/img/lm_en_bunsik.webp" data-ko="assets/img/lm_ko_bunsik.webp" width="620" height="877" alt="Little Moon snack bar poster in red" loading="lazy">
+            <img class="lm" src="assets/img/lm_en_cheese.webp" data-en="assets/img/lm_en_cheese.webp" data-ko="assets/img/lm_ko_cheese.webp" width="620" height="877" alt="Little Moon cheese crunch poster in yellow" loading="lazy">
+            <img class="lm" src="assets/img/lm_en_jelly.webp" data-en="assets/img/lm_en_jelly.webp" data-ko="assets/img/lm_ko_jelly.webp" width="620" height="877" alt="Little Moon jelly squishy poster in sky blue" loading="lazy">
+          </div>
+        </div>
+        <div class="card__body">
+          <p class="meta">Visual Design · Product Campaign</p>
+          <h3 class="card-title" data-i18n="lmT">Little Moon Campaign</h3>
+          <p class="card__text" data-i18n="lmCard">Three posters for a stationery shop’s squishy toy line: a red snack-bar menu, a yellow crunch poster and a sky-blue jelly poster, each in Korean and English.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__media">
+          <div class="trio">
+            <img src="assets/img/travel_christmas.webp" width="600" height="800" alt="Christmas tour itinerary poster" loading="lazy">
+            <img src="assets/img/travel_caribbean_route.webp" width="797" height="700" alt="Western Caribbean cruise route map" loading="lazy">
+            <img src="assets/img/travel_nile.webp" width="800" height="450" alt="Nile felucca tour thumbnail" loading="lazy">
+          </div>
+        </div>
+        <div class="card__body">
+          <p class="meta">Visual Design · Travel</p>
+          <h3 class="card-title">Travel Campaign Designs</h3>
+          <p class="card__text" data-i18n="tcCard">Itinerary posters, route maps and promo images for tour products. Places, dates and routes are checked before release.</p>
+        </div>
+      </article>
+
+      
+    </div>
+  </div></section>
+
+  <section class="band section" id="games" aria-labelledby="games-h"><div class="wrap">
+    <div class="section__head"><h2 class="section-title" id="games-h" data-i18n="gamesH">Game development</h2><p class="muted" data-i18n="gamesP">Unity projects where I built the gameplay systems.</p></div>
+    <div class="games">
+      <article class="game"><img src="assets/img/game_fruits_go_boom.webp" width="800" height="447" alt="Fruits Go Boom title screen" loading="lazy">
+        <div class="game__body"><h3 class="card-title">Fruits Go Boom</h3><p class="muted" data-i18n="g1m">2025 · 2D platformer shooter</p>
+          <dl><div><dt data-i18n="myRole">My role</dt><dd data-i18n="g1r">Wrote the game design document and built tank aiming with trajectory lines, boss patterns, the tutorial and unlock systems.</dd></div></dl>
+          <a href="https://www.youtube.com/watch?v=7NO5quQptqE" target="_blank" rel="noopener" data-i18n="watch">Watch gameplay video</a></div></article>
+      <article class="game"><img src="assets/img/game_patriot_circuit.webp" width="800" height="600" alt="Patriot Circuit title screen" loading="lazy">
+        <div class="game__body"><h3 class="card-title">Patriot Circuit</h3><p class="muted" data-i18n="g2m">2025 · Kart racing</p>
+          <dl><div><dt data-i18n="myRole">My role</dt><dd data-i18n="g2r">Built kart movement and slipstream, and designed and programmed the Burger Kart’s ketchup-and-mustard ability.</dd></div></dl>
+          <a href="https://www.youtube.com/watch?v=NBgTHzx-cQg" target="_blank" rel="noopener" data-i18n="watch">Watch gameplay video</a></div></article>
+      <article class="game"><img src="assets/img/game_37-131.webp" width="800" height="448" alt="37' 131' title screen" loading="lazy">
+        <div class="game__body"><h3 class="card-title">37' 131'</h3><p class="muted" data-i18n="g3m">2024 · Educational puzzle about Dokdo</p>
+          <dl><div><dt data-i18n="myRole">My role</dt><dd data-i18n="g3r">Built the dialogue and typewriter systems, an O/X quiz tied to health, camera moves and a Korean/English option.</dd></div></dl>
+          <a href="https://www.youtube.com/watch?v=YQ5NrwZwJ54" target="_blank" rel="noopener" data-i18n="watch">Watch gameplay video</a></div></article>
+    </div>
+    <div class="archive">
+      <h3 data-i18n="archH">Archive: remakes (2022)</h3>
+      <ul><li data-i18n="arch1">Master of Fantasy Remake. Original art and content belong to BuddyBuddy; I programmed movement, sprite swapping, minigames and scene flow.</li>
+      <li data-i18n="arch2">Magic School Arpia Remake. Original art and content belong to NCSOFT; I programmed the turn-based duel, quest and sprite-layer systems.</li></ul>
+    </div>
+  </div></section>
+
+  <section class="band section" id="about" aria-labelledby="about-h"><div class="wrap about">
+    <div>
+      <h2 class="section-title" id="about-h" data-i18n="aboutH">About</h2>
+      <p class="about__lead" style="margin-top:16px" data-i18n="aboutP">I began by building interactive gameplay systems in Unity. I later expanded into commercial visual design and functional prototypes for mobile experiences and workflow tools, bringing design and implementation together.</p>
+      <p class="edu">George Mason University — BFA, Computer Game Design</p>
+    </div>
+    <ol class="path" aria-label="Path">
+      <li><span>1</span><div><b data-i18n="s1">Game interaction</b><p class="muted" data-i18n="s1d">Gameplay systems in Unity, refined through playtests.</p></div></li>
+      <li><span>2</span><div><b data-i18n="s2">Commercial visual design</b><p class="muted" data-i18n="s2d">Campaigns, itineraries and maps for travel products.</p></div></li>
+      <li><span>3</span><div><b data-i18n="s3">Mobile apps and workflow tools</b><p class="muted" data-i18n="s3d">Working prototypes that run on real devices.</p></div></li>
+    </ol>
+  </div></section>
+
+  <section class="band section" id="contact" aria-labelledby="contact-h"><div class="wrap contact">
+    <div>
+      <h2 class="section-title" id="contact-h" data-i18n="contactH">Contact</h2>
+      <p class="muted" style="margin-top:12px; max-width:44ch" data-i18n="contactP">Open to junior UI/UX, product design and interactive prototyping roles in Korea and the US.</p>
+    </div>
+    <div class="links">
+      <div class="row"><span>Email</span><code id="email">zainangel@naver.com</code><button class="btn btn--ghost mini" type="button" id="copy" data-i18n="copy">Copy</button><span class="status" id="copyStatus" aria-live="polite"></span></div>
+      <div class="row"><span>LinkedIn</span><a href="https://www.linkedin.com/in/se-hyun-lee-08b1a2395/" target="_blank" rel="noopener">se-hyun-lee</a></div>
+      <div class="row"><span>GitHub</span><a href="https://github.com/SehyunLee0911" target="_blank" rel="noopener">SehyunLee0911</a></div>
+    </div>
+  </div></section>
+</div>
+
+<div id="view-toptrip" hidden>
+  <article class="band case"><div class="wrap">
+    <a class="back" href="#work"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg><span data-i18n="back">All work</span></a>
+    <p class="meta" style="margin-top:18px">Mobile UX/UI · Interactive Prototype · AI-Assisted Development</p>
+    <h1>TopTrip — Travel Companion App</h1>
+    <p class="body-copy" data-i18n="ttCard">TopTrip is a functional mobile prototype designed to help group travelers and tour guides manage itineraries, meeting points, announcements, and attendance.</p>
+    <dl class="facts">
+      <div><dt data-i18n="fRoleT">Role</dt><dd data-i18n="fRole">UX/UI design, screen flows, prototype build</dd></div>
+      <div><dt data-i18n="fTimeT">Timeline</dt><dd data-i18n="fTime">Started Sep 21, 2026</dd></div>
+      <div><dt data-i18n="fTeamT">Team</dt><dd><span class="todo" data-i18n="confirm">To confirm</span></dd></div>
+      <div><dt data-i18n="fToolT">Tools / Tech</dt><dd><span class="todo" data-i18n="confirm">To confirm</span></dd></div>
+      <div><dt data-i18n="fStatT">Status</dt><dd data-i18n="fStat">Working prototype</dd></div>
+    </dl>
+    <div class="gallery">
+      <figure><img class="shot" src="assets/img/tt_home.webp" width="540" height="1115" alt="Traveler home" loading="lazy"><figcaption data-i18n="capHome">Traveler home</figcaption></figure>
+      <figure><img class="shot" src="assets/img/tt_map.webp" width="540" height="1115" alt="Daily schedule with route map" loading="lazy"><figcaption data-i18n="capMap">Trip map</figcaption></figure>
+      <figure><img class="shot" src="assets/img/tt_meet.webp" width="540" height="1115" alt="Meeting alert with traveler confirmation" loading="lazy"><figcaption data-i18n="capAtt">Meeting check-in</figcaption></figure>
+      <figure><img class="shot" src="assets/img/tt_guide.webp" width="540" height="1115" alt="Guide location card with call and directions buttons, map blurred" loading="lazy"><figcaption data-i18n="capGuide">Guide location (map blurred)</figcaption></figure>
+      <figure><img class="shot" src="assets/img/tt_spot.webp" width="540" height="1115" alt="Attraction detail for Zagreb sightseeing" loading="lazy"><figcaption data-i18n="capSpot">Attraction detail</figcaption></figure>
+      <figure><img class="shot" src="assets/img/tt_sos.webp" width="540" height="1115" alt="Emergency contacts with guide call and share-my-location buttons" loading="lazy"><figcaption data-i18n="capSos">Emergency contacts</figcaption></figure>
+    </div>
+    <div class="case__grid">
+      <nav class="toc" aria-label="Case study sections">
+        <a href="#c-problem" data-i18n="hProblem">Problem</a><a href="#c-users" data-i18n="hUsers">Users</a><a href="#c-decisions" data-i18n="hDec">Key decisions</a><a href="#c-demo" data-i18n="hDemo">Functional demo</a><a href="#c-tech" data-i18n="hTech">Technical approach</a><a href="#c-limits" data-i18n="hLim">Limitations</a>
+      </nav>
+      <div class="chapters">
+        <section class="chapter" id="c-problem"><h2 data-i18n="hProblem">Problem</h2>
+          <ul><li data-i18n="p1">When the itinerary changes, travelers easily miss the update.</li><li data-i18n="p2">In an unfamiliar place it is hard to find the meeting point, the time and how to reach the guide.</li><li data-i18n="p3">Guides may track attendance, notices and locations in separate tools.</li></ul></section>
+
+        <section class="chapter" id="c-users"><h2 data-i18n="hUsers">Users</h2>
+          <p class="join" data-i18n="join">Everyone starts by joining with a trip code.</p>
+          <div class="flows">
+            <div class="flowrow"><b data-i18n="uT">Traveler</b><ol class="steps"><li data-i18n="t1">Today</li><li data-i18n="t2">Schedule</li><li data-i18n="t3">Map</li><li data-i18n="t4">Notices / Chat</li><li data-i18n="t5">Emergency</li></ol></div>
+            <div class="flowrow"><b data-i18n="uG">Guide</b><ol class="steps"><li data-i18n="g1">Assigned trip</li><li data-i18n="g2">Roster</li><li data-i18n="g3">Attendance</li><li data-i18n="g4">Meeting alert</li><li data-i18n="g5">Chat</li></ol></div>
+            <div class="flowrow"><b data-i18n="uA">Admin</b><ol class="steps"><li data-i18n="a1">Trip setup</li><li data-i18n="a2">Schedule / Options</li><li data-i18n="a3">Guide assignment</li><li data-i18n="a4">Route data</li></ol></div>
+          </div></section>
+
+        <section class="chapter" id="c-decisions"><h2 data-i18n="hDec">Key decisions</h2>
+          <div class="decisions">
+            <div class="decision"><h3 data-i18n="d1">Home changes before, during and after the trip</h3>
+              <dl><div><dt data-i18n="dP">Problem</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div><div><dt data-i18n="dO">Options</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div><div><dt data-i18n="dC">Choice</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div><div><dt data-i18n="dR">Result / next check</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div></dl></div>
+            <div class="decision"><h3 data-i18n="d2">Separate flows for travelers and guides on the same schedule data</h3>
+              <dl><div><dt data-i18n="dP">Problem</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div><div><dt data-i18n="dO">Options</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div><div><dt data-i18n="dC">Choice</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div><div><dt data-i18n="dR">Result / next check</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div></dl></div>
+            <div class="decision"><h3 data-i18n="d3">Meeting point and alerts always shown the same way</h3>
+              <dl><div><dt data-i18n="dP">Problem</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div><div><dt data-i18n="dO">Options</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div><div><dt data-i18n="dC">Choice</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div><div><dt data-i18n="dR">Result / next check</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div></dl></div>
+          </div></section>
+
+        <section class="chapter" id="c-demo"><h2 data-i18n="hDemo">Functional demo</h2>
+          <div class="demo">
+            <video controls muted playsinline preload="metadata" poster="assets/img/toptrip-demo-poster.jpg" aria-describedby="demoSteps"><source src="assets/video/toptrip-demo.mp4" type="video/mp4"></video>
+            <div>
+              <p class="muted" data-i18n="demoP">A 37-second cut from the Oct 26, 2026 device test. No sound, no autoplay.</p>
+              <ol id="demoSteps" style="margin-top:12px">
+                <li data-i18n="ds1">Traveler home with trip countdown and quick actions</li>
+                <li data-i18n="ds2">Daily schedule and route map</li>
+                <li data-i18n="ds3">Guide location with call and directions</li>
+                <li data-i18n="ds4">Meeting alert in group chat, confirmed by the traveler</li>
+                <li data-i18n="ds5">Emergency contacts</li>
+              </ol>
+              <p class="muted" style="margin-top:12px" data-i18n="demoNext">Next: a 60–90 s edit with trip-code join and two devices syncing.</p>
+            </div>
+          </div></section>
+
+        <section class="chapter" id="c-tech"><h2 data-i18n="hTech">Technical approach</h2>
+          <div class="pipe" aria-label="Data flow"><span data-i18n="pp1">App screens</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span data-i18n="pp2">Server data</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span data-i18n="pp3">Other travelers’ and guide’s devices</span></div>
+          <div class="split">
+            <div><h3 data-i18n="me">What I did</h3><p class="muted" data-i18n="meP">Defined requirements, made the design decisions, integrated the pieces, debugged and tested on real devices.</p></div>
+            <div><h3 data-i18n="ai">Where AI helped</h3><p class="muted" data-i18n="aiP">Drafting code from my specifications. I reviewed, adjusted and tested what it produced.</p></div>
+          </div></section>
+
+        <section class="chapter" id="c-limits"><h2 data-i18n="hLim">Limitations</h2>
+          <ul><li data-i18n="l1">Real-world testing with older travelers</li><li data-i18n="l2">Accessibility, text size and touch targets</li><li data-i18n="l3">Authentication, permissions, data security and privacy</li><li data-i18n="l4">Offline and unstable networks</li><li data-i18n="l5">Operational stability, monitoring and maintenance</li></ul>
+          <p class="honest" data-i18n="honest">This is a working prototype that runs on real devices. It has not completed live customer operation or large-scale usability testing.</p></section>
       </div>
+    </div>
+  </div></article>
+</div>
+</main>
 
-      <p class="work__desc" id="workDesc"></p>
+<footer class="band"><div class="wrap">© 2026 Sehyun Lee</div></footer>
 
-      <ul class="work__bullets" id="workBullets"></ul>
+<script>
+(function(){
+  var KO={
+    skip:"본문으로 건너뛰기", notice:"미리보기입니다. TopTrip 화면은 10월 26일 테스트 녹화에서 가져왔고, 다른 사람 이름과 실시간 지도는 흐림 처리했습니다. 점선 상자는 아직 필요한 파일입니다.",
+    navWork:"작업", navAbout:"소개", navContact:"연락",
+    heroH:"디자인하고, 직접 구현합니다.",
+    heroP:"게임 시스템 제작에서 출발해 모바일 앱과 업무 도구까지, 시각 디자인과 인터랙티브 기술을 연결해 실제 작동하는 경험을 만듭니다.",
+    cta1:"대표 작업 보기", cta2:"TopTrip 사례 보기",
+    capHome:"고객 홈", capMap:"여행 지도", capAtt:"집합 확인", capGuide:"가이드 위치 (지도 흐림 처리)", capSpot:"관광지 상세", capSos:"비상 연락",
+    workH:"대표 작업", workP:"제가 디자인한 것, 직접 만든 것, 각 프로젝트의 현재 상태를 보여 드립니다.",
+    ttCard:"TopTrip은 단체여행 고객과 가이드가 일정, 집합 장소, 공지 및 출석 현황을 한곳에서 확인하고 관리할 수 있도록 만든 모바일 앱 프로토타입입니다.",
+    readCase:"사례 연구 보기", f1:"원본 PDF", f2:"편집 화면",
+    docCard:"여행 일정 PDF를 편집하고 Excel·PowerPoint로 변환하는 도구입니다. 실제 입력, 편집 화면, 출력물로 보여 드립니다.",
+    lmT:"리틀문방구 캠페인", lmRed:"분식 (빨강)", lmY:"치즈 (노랑)", lmB:"젤리 (하늘색)", lmCard:"리틀문방구의 말랑이 제품을 위한 포스터 3종입니다. 빨간 분식 메뉴판, 노란 크런치, 하늘색 젤리 포스터를 한국어·영어로 만들었습니다.",
+    tcCard:"여행 상품 일정표 포스터, 항로 지도, 홍보 이미지입니다. 장소, 날짜, 경로는 공개 전에 검수합니다.",
+    gdCard:"게임 개발", gdText:"게임 시스템을 직접 구현한 Unity 프로젝트 3개입니다.", seeGames:"게임 보기",
+    gamesH:"게임 개발", gamesP:"게임 시스템을 직접 구현한 Unity 프로젝트입니다.", myRole:"담당 역할", watch:"플레이 영상 보기",
+    g1m:"2025 · 2D 플랫포머 슈팅", g1r:"게임 기획서를 쓰고, 궤적선이 있는 탱크 조준, 보스 패턴, 튜토리얼과 해금 시스템을 구현했습니다.",
+    g2m:"2025 · 카트 레이싱", g2r:"카트 이동과 슬립스트림을 구현하고, 버거 카트의 케첩·머스터드 능력을 기획하고 프로그래밍했습니다.",
+    g3m:"2024 · 독도 교육용 퍼즐", g3r:"대화·타자기 효과 시스템, 체력이 걸린 O/X 퀴즈, 카메라 연출, 한/영 선택 기능을 구현했습니다.",
+    archH:"아카이브: 리메이크 (2022)",
+    arch1:"마스터 오브 판타지 리메이크. 원작 그래픽과 콘텐츠는 버디버디 소유이며, 저는 이동, 스프라이트 교체, 미니게임, 장면 전환을 프로그래밍했습니다.",
+    arch2:"마법학교 아르피아 리메이크. 원작 그래픽과 콘텐츠는 엔씨소프트 소유이며, 저는 턴제 대결, 퀘스트, 스프라이트 레이어 시스템을 프로그래밍했습니다.",
+    aboutH:"소개", aboutP:"게임 인터랙션을 구현하며 사용자 경험과 시스템의 관계를 배웠습니다. 이후 상업 시각 디자인을 거쳐, 실제 기기에서 작동하는 모바일 앱과 업무용 도구를 설계·구현하는 작업으로 경험을 확장했습니다.",
+    s1:"게임 인터랙션", s1d:"Unity로 게임 시스템을 만들고 플레이 테스트로 다듬었습니다.", s2:"상업 시각 디자인", s2d:"여행 상품 캠페인, 일정표, 지도를 디자인했습니다.", s3:"모바일 앱과 업무 도구", s3d:"실제 기기에서 작동하는 프로토타입을 만들었습니다.",
+    contactH:"연락", contactP:"한국과 미국의 신입·주니어 UI/UX, 프로덕트 디자인, 인터랙티브 프로토타이핑 직무에 지원하고 있습니다.", copy:"복사",
+    back:"전체 작업",
+    fRoleT:"역할", fRole:"UX/UI 설계, 화면 흐름, 프로토타입 구현", fTimeT:"기간", fTime:"2026년 9월 21일 시작", fTeamT:"팀", fToolT:"도구 / 기술", fStatT:"상태", fStat:"작동하는 프로토타입", confirm:"확인 필요", todo:"작성 예정",
+    hProblem:"문제", hUsers:"사용자", hDec:"주요 설계 결정", hDemo:"기능 데모", hTech:"기술 접근", hLim:"한계",
+    p1:"여행 일정이 바뀌면 참여자가 업데이트를 놓치기 쉽습니다.", p2:"낯선 여행지에서 집합 장소, 시간, 가이드 연락 방법을 빠르게 찾기 어렵습니다.", p3:"가이드는 출석, 공지, 위치 확인을 서로 다른 도구로 관리해야 할 수 있습니다.",
+    join:"모든 사용자는 여행 코드로 참가하며 시작합니다.",
+    uT:"고객", t1:"오늘", t2:"일정", t3:"지도", t4:"공지 / 채팅", t5:"긴급 연락",
+    uG:"가이드", g1:"배정된 여행", g2:"명단", g3:"출석", g4:"집합 알림", g5:"채팅",
+    uA:"관리자", a1:"여행 설정", a2:"일정 / 옵션", a3:"가이드 배정", a4:"경로 데이터",
+    d1:"여행 전·중·종료 상태에 따라 홈 정보를 바꿈", d2:"같은 일정 데이터를 고객과 가이드가 다른 흐름으로 사용", d3:"집합 장소와 알림을 항상 같은 방식으로 노출",
+    dP:"문제", dO:"고려한 선택지", dC:"실제 선택", dR:"결과 / 추가 검증",
+    demoP:"2026년 10월 26일 실기기 테스트 영상에서 37초를 골랐습니다. 소리와 자동재생은 없습니다.",
+    ds1:"여행 카운트다운과 바로가기가 있는 고객 홈", ds2:"일자별 일정과 경로 지도", ds3:"전화·길찾기가 있는 가이드 위치", ds4:"단체 채팅의 집합 알림과 고객 확인", ds5:"비상 연락처",
+    demoNext:"다음 단계: 여행 코드 참가와 두 기기 동기화를 담은 60~90초 편집본.",
+    pp1:"앱 화면", pp2:"서버 데이터", pp3:"다른 고객·가이드 기기",
+    me:"제가 한 일", meP:"요구사항을 정의하고, 디자인을 결정하고, 기능을 통합하고, 실제 기기에서 디버깅과 테스트를 했습니다.",
+    ai:"AI의 도움", aiP:"제가 정한 사양으로 코드 초안을 작성했습니다. 결과물은 제가 검토하고 수정하고 테스트했습니다.",
+    l1:"고령 사용자 대상 실사용 검증", l2:"접근성, 글씨 크기, 터치 영역", l3:"인증과 권한 관리, 데이터 보안·개인정보", l4:"오프라인·불안정한 네트워크 대응", l5:"운영 안정성, 모니터링, 유지보수",
+    honest:"이 프로젝트는 실제 기기에서 동작하는 프로토타입이며, 정식 고객 운영과 대규모 사용성 검증을 완료한 서비스는 아닙니다."
+  };
+  var EN={}, nodes=document.querySelectorAll("[data-i18n]");
+  nodes.forEach(function(n){ var k=n.getAttribute("data-i18n"); if(!(k in EN)) EN[k]=n.innerHTML; });
+  function setLang(l){
+    var d=l==="ko"?KO:EN;
+    nodes.forEach(function(n){ var k=n.getAttribute("data-i18n"); if(d[k]!=null) n.innerHTML=d[k]; });
+    document.documentElement.lang=l;
+    document.querySelectorAll("img[data-ko]").forEach(function(im){ im.src=im.getAttribute("data-"+l); });
+    document.querySelectorAll(".lang button").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.lang===l?"true":"false"); });
+    try{ localStorage.setItem("lang",l); }catch(e){}
+  }
+  document.querySelectorAll(".lang button").forEach(function(b){ b.addEventListener("click",function(){ setLang(b.dataset.lang); }); });
+  var saved="en"; try{ saved=localStorage.getItem("lang")||"en"; }catch(e){}
+  setLang(saved);
 
-      <div class="work__links"></div>
-    </aside>
-  </div>
-</section>
+  var menu=document.getElementById("menu"), mb=document.getElementById("menuBtn");
+  mb.addEventListener("click",function(){ var o=menu.classList.toggle("open"); mb.setAttribute("aria-expanded",o?"true":"false"); mb.setAttribute("aria-label",o?"Close menu":"Open menu"); });
+  menu.addEventListener("click",function(e){ if(e.target.tagName==="A"){ menu.classList.remove("open"); mb.setAttribute("aria-expanded","false"); } });
 
-<script src="work.js"></script>
+  var home=document.getElementById("view-home"), cs=document.getElementById("view-toptrip");
+  function route(){
+    var h=location.hash.slice(1), isCase=(h==="toptrip"||h.indexOf("c-")===0);
+    home.hidden=isCase; cs.hidden=!isCase;
+    if(h==="toptrip"||h==="home"||!h){ window.scrollTo(0,0); return; }
+    var el=document.getElementById(h); if(el) el.scrollIntoView();
+  }
+  window.addEventListener("hashchange",route); route();
+
+  var st=document.getElementById("copyStatus");
+  document.getElementById("copy").addEventListener("click",function(){
+    var el=document.getElementById("email"), ko=document.documentElement.lang==="ko";
+    function sel(){ var r=document.createRange(); r.selectNodeContents(el); var s=getSelection(); s.removeAllRanges(); s.addRange(r); st.textContent=ko?"선택됨":"Selected"; }
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(el.textContent).then(function(){ st.textContent=ko?"복사됨":"Copied"; },sel); } else sel();
+  });
+})();
+</script>
+
 </body>
-</html> 
+</html>
