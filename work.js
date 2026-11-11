@@ -1,10 +1,9 @@
 (function () {
   // ====== 프로젝트 데이터 ======
   // youtubeId: 오류 153 방지를 위해 유효한 ID를 넣으세요.
-  // videoSrc: 100MB 이하로 압축된 파일이어야 GitHub Pages에서 안정적으로 재생됩니다.
+  // 영상은 클릭할 때만 유튜브 플레이어를 불러옵니다(첫 로딩을 가볍게 유지).
 
   /* eslint-disable */
-  /* global YT */	
 	
   var projects = [
     {
@@ -25,8 +24,7 @@
 		"Instatinated Episode 0 from Original Game",
       ],
       youtubeId: "zRcMOqF0-zs", 
-      thumb: "img/arpia.png",
-	  videoSrc: "vid/arpia.mp4"
+      thumb: "img/thumb_arpia.webp"
     },
     {
       title: "Master of Fantasy - Remake (2022)",
@@ -42,8 +40,7 @@
         "Scene Management"
       ],
       youtubeId: "JioguVBeclA", 
-      thumb: "img/mof.png",
-	  videoSrc: "vid/mof.mp4"
+      thumb: "img/thumb_mof.webp"
     },
     {
       title: "37' 131' (2024)",
@@ -59,8 +56,7 @@
         "Korean/English Preference System"
       ],
       youtubeId: "YQ5NrwZwJ54", 
-      thumb: "img/37'131'.png",
-	  videoSrc: "vid/37'131'.mp4" // 파일명에 특수문자(') 제거 추천
+      thumb: "img/thumb_37-131.webp"
     },
     {
       title: "Patriot Circuit (2025)",
@@ -73,8 +69,7 @@
         "Slipstream Programming",
       ],
       youtubeId: "NBgTHzx-cQg", 
-      thumb: "img/patriot_circuit.png",
-	  videoSrc: "vid/patriot_circuit.mp4"
+      thumb: "img/thumb_patriot_circuit.webp"
     },
 	{
       title: "Fruits Go Boom (2025)",
@@ -92,8 +87,7 @@
 		"UI, BGM & SFX Intergration"
       ],
       youtubeId: "7NO5quQptqE", 
-      thumb: "img/fruits_go_boom.png",
-	  //videoSrc: "vid/patriot_circuit.mp4"
+      thumb: "img/thumb_fruits_go_boom.webp"
     }
   ];
 
@@ -107,14 +101,9 @@
   var nextBtn = document.getElementById("nextBtn");
 
   var ytContainer = document.getElementById("ytPlayer");
-  var htmlVideo = document.getElementById("htmlVideo");
 
   var currentIndex = 0;
   var thumbButtons = [];
-  var player = null;
-  var ytReady = false;
-  var loadToken = 0;
-
   // ====== 유틸리티 함수 ======
   function renderTags(tags) {
     workTags.innerHTML = "";
@@ -149,57 +138,29 @@
     renderBullets(p.bullets);
   }
 
-  // ====== 플레이어 제어 ======
-  function showYouTubeLayer() {
-    ytContainer.style.display = "block";
-    htmlVideo.style.display = "none";
-  }
-
-  function showMp4Layer() {
-    ytContainer.style.display = "none";
-    htmlVideo.style.display = "block";
-  }
-
-  function playMp4(src) {
-    showMp4Layer();
-    if (!src) return;
-    htmlVideo.pause();
-    htmlVideo.src = src;
-    htmlVideo.load();
-    htmlVideo.play().catch(function(e) { console.log("Auto-play blocked"); });
-  }
-
+  // ====== 플레이어 제어 (클릭 시 로드) ======
   function loadVideo(p) {
-    var myToken = ++loadToken;
-    
-    // 유튜브 ID가 없는 경우 즉시 MP4 재생
-    if (!p.youtubeId) {
-      playMp4(p.videoSrc);
-      return;
-    }
+    ytContainer.innerHTML = "";
+    if (!p.youtubeId) return;
 
-    showYouTubeLayer();
-
-    if (ytReady && player && player.loadVideoById) {
-      player.loadVideoById({
-        videoId: p.youtubeId,
-        startSeconds: p.start || 0
-      });
-
-      // 153 오류 등 로딩 실패 대비 타이머 (2초 내에 시작 안 되면 MP4 전환)
-      setTimeout(function() {
-        if (myToken !== loadToken) return;
-        var state = -999;
-        try { state = player.getPlayerState(); } catch(e) {}
-        if (state === -1 || state === 5 || state === -999) {
-          console.warn("YouTube fallback to MP4...");
-          playMp4(p.videoSrc);
-        }
-      }, 2000);
-    } else {
-      // API 미준비 시 MP4 재생
-      playMp4(p.videoSrc);
-    }
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "yt-poster";
+    btn.setAttribute("aria-label", "Play video: " + p.title);
+    btn.style.backgroundImage = "url(https://i.ytimg.com/vi/" + p.youtubeId + "/hqdefault.jpg)";
+    btn.innerHTML = '<span class="yt-poster__icon" aria-hidden="true"></span>';
+    btn.onclick = function () {
+      var iframe = document.createElement("iframe");
+      iframe.src = "https://www.youtube.com/embed/" + p.youtubeId +
+        "?autoplay=1&rel=0&playsinline=1&start=" + (p.start || 0);
+      iframe.title = p.title;
+      iframe.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+      iframe.allowFullscreen = true;
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+      ytContainer.innerHTML = "";
+      ytContainer.appendChild(iframe);
+    };
+    ytContainer.appendChild(btn);
   }
 
   function showProject(index) {
@@ -232,37 +193,6 @@
   prevBtn.onclick = function () { showProject(currentIndex - 1); };
   nextBtn.onclick = function () { showProject(currentIndex + 1); };
 
-// ====== YouTube API (전역 함수) ======
-  window.onYouTubeIframeAPIReady = function () {
-    console.log("YouTube API Ready"); // 확인용 로그
-    player = new YT.Player("ytPlayer", {
-      width: "100%",
-      height: "100%",
-      host: "https://www.youtube.com", // nocookie 대신 일반 도메인 명시
-	  playerVars: {
-    	rel: 0,
-    	playsinline: 1,
-    	modestbranding: 1,
-    	enablejsapi: 1,
-    	// window.location.origin 대신 실제 사이트 주소를 따옴표 안에 넣으세요
-    	origin: "https://sehyunlee0911.github.io" 
-},
-      events: {
-        onReady: function () {
-          ytReady = true;
-          console.log("Player Ready");
-          showProject(0);
-        },
-        onError: function (e) {
-          // 오류 153 등이 발생하면 여기로 들어옵니다.
-          console.error("YouTube Error Code:", e.data);
-          playMp4(projects[currentIndex].videoSrc);
-        }
-      }
-    });
-  };
-
   buildThumbs();
-  updateRightPanel(projects[0]);
-  setActiveThumb(0);
+  showProject(0);
 })();

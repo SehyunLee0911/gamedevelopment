@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -39,11 +39,8 @@
     <!-- LEFT: Player + Thumbs (✅ thumbs moved here) -->
     <div class="work__left">
       <div class="work__video">
-        <!-- YouTube Player -->
-        <div id="ytPlayer" class="player player--yt"></div>
-
-        <!-- HTML5 Video Fallback -->
-        <video id="htmlVideo" class="player player--mp4" controls playsinline preload="metadata"></video>
+        <!-- YouTube Player (클릭 시 로드) -->
+        <div id="ytPlayer" class="player"></div>
       </div>
 
       <!-- ✅ Bottom thumbnail buttons (moved under video to center by player) -->
@@ -72,7 +69,6 @@
   </div>
 </section>
 
-<script src="https://www.youtube.com/iframe_api"></script>
 <script src="work.js"></script>
 </body>
 </html> 
