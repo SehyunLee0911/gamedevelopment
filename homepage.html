@@ -51,40 +51,43 @@ h1,h2,h3{text-wrap:balance}
 body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top, 0px); z-index:10; background:var(--bg)}
 .nav{position:sticky; top:env(safe-area-inset-top, 0px); z-index:9; background:rgba(247,247,244,.94); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
 .nav .wrap{display:flex; align-items:center; gap:10px; min-height:64px; position:relative}
-.logo{font:800 1.05rem/1 var(--font-en); letter-spacing:-0.02em; text-decoration:none; margin-right:auto; padding:10px 0}
+.logo{font:600 1.05rem/1 var(--font-en); letter-spacing:-0.02em; text-decoration:none; margin-right:auto; padding:10px 0}
 .menu{display:flex; gap:2px}
 .menu a{display:inline-flex; align-items:center; min-height:44px; padding:0 12px; border-radius:var(--r-ctl); text-decoration:none; font-weight:600; font-size:.95rem; color:var(--muted); transition:color 150ms ease, background-color 150ms ease}
 .menu a:hover{color:var(--ink); background:var(--line)}
 .lang{display:inline-flex; border:1px solid var(--line); border-radius:999px; padding:3px; background:var(--card)}
-.lang button{border:0; background:transparent; font:700 .8rem/1 var(--font-en); color:var(--muted); min-height:38px; min-width:42px; border-radius:999px; cursor:pointer}
+.lang button{border:0; background:transparent; font:600 .8rem/1 var(--font-en); color:var(--muted); min-height:38px; min-width:42px; border-radius:999px; cursor:pointer}
 .lang button[aria-pressed="true"]{background:var(--ink); color:#fff}
 .menu-btn{display:none; width:44px; height:44px; border:1px solid var(--line); background:var(--card); border-radius:var(--r-ctl); cursor:pointer; align-items:center; justify-content:center}
 .menu-btn svg{width:20px; height:20px}
 
 /* ---------- Hero ---------- */
-.hero{display:grid; grid-template-columns:minmax(0,55fr) minmax(0,45fr); gap:clamp(28px,5vw,64px); align-items:center; padding-block:clamp(48px,7vw,88px) clamp(40px,6vw,72px)}
+.hero{min-height:calc(100svh - 64px); display:grid; grid-template-columns:minmax(0,55fr) minmax(0,45fr); gap:clamp(28px,5vw,64px); align-items:center; padding-block:clamp(48px,7vw,88px) clamp(40px,6vw,72px)}
 .hero__copy{display:grid; gap:20px; align-content:center}
-.hero-title{font-size:clamp(2.375rem,5.5vw,4.75rem); line-height:1.08; letter-spacing:-0.045em; font-weight:800}
+.hero-title{font-size:clamp(2.375rem,5.5vw,4.75rem); line-height:1.08; letter-spacing:-0.045em; font-weight:600}
 :lang(ko) .hero-title{font-size:clamp(2.125rem,4.8vw,4.125rem); line-height:1.16; letter-spacing:-0.035em}
 .body-copy{font-size:clamp(1rem,1.2vw,1.125rem); line-height:1.7; max-width:62ch; color:var(--muted)}
 .badges{display:flex; flex-wrap:wrap; gap:8px; padding:0; margin:0; list-style:none}
 .badges li{border:1px solid var(--line); background:var(--card); border-radius:999px; padding:6px 12px; font-size:.875rem; font-weight:600}
 .ctas{display:flex; flex-wrap:wrap; gap:10px}
-.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:48px; padding:0 20px; border-radius:var(--r-ctl); border:1px solid var(--ink); font-weight:700; font-size:.95rem; text-decoration:none; cursor:pointer; transition:background-color 150ms ease, border-color 150ms ease, color 150ms ease}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:48px; padding:0 20px; border-radius:var(--r-ctl); border:1px solid var(--ink); font-weight:600; font-size:.95rem; text-decoration:none; cursor:pointer; transition:background-color 150ms ease, border-color 150ms ease, color 150ms ease}
 .btn--solid{background:var(--ink); color:#fff}
 .btn--solid:hover{background:var(--accent); border-color:var(--accent)}
 .btn--ghost{background:var(--card); color:var(--ink); border-color:var(--line)}
 .btn--ghost:hover{border-color:var(--ink)}
 .screens{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; align-items:end}
 .screens figure{margin:0; display:grid; gap:8px}
-.screens figure:nth-child(2){transform:translateY(-24px)}
-.screens figcaption{font-size:.8125rem; font-weight:600; color:var(--muted); text-align:center}
+.screens{position:relative}
+.screens::after{content:""; position:absolute; left:16.66%; right:16.66%; bottom:27px; border-top:1.5px dashed var(--slot); z-index:0}
+.screens figcaption{position:relative; z-index:1; display:grid; justify-items:center; gap:6px; font-size:.8125rem; font-weight:500; color:var(--muted); text-align:center}
+.stop{display:block; width:12px; height:12px; border-radius:50%; background:var(--bg); border:2px solid var(--slot)}
+.stop--now{background:var(--accent); border-color:var(--accent); box-shadow:0 0 0 4px var(--tint)}
 
 /* ---------- Asset slot (where a real file goes) ---------- */
 .slot{position:relative; display:grid; place-items:center; align-content:center; gap:6px; text-align:center; padding:14px;
   background:repeating-linear-gradient(135deg, var(--tint) 0 10px, #F4F8FA 10px 20px);
   border:1.5px dashed var(--slot); border-radius:var(--r-ctl); color:var(--accent); min-height:120px; max-width:100%}
-.slot b{font-size:.8125rem; font-weight:700}
+.slot b{font-size:.8125rem; font-weight:600}
 .slot code{font:500 .75rem/1.35 var(--font-en), var(--font-ko); color:var(--muted); word-break:break-all}
 .shot{display:block; width:100%; height:auto; aspect-ratio:540/1115; object-fit:cover; border-radius:22px; border:6px solid var(--ink); background:var(--card)}
 .lm{display:block; width:100%; height:100%; object-fit:cover; border-radius:var(--r-ctl); min-height:0}
@@ -99,7 +102,7 @@ body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-in
 /* ---------- Sections ---------- */
 .section{padding-block:clamp(56px,8vw,112px); border-top:1px solid var(--line)}
 .section__head{display:flex; justify-content:space-between; align-items:end; gap:16px; flex-wrap:wrap; margin-bottom:28px}
-.section-title{font-size:clamp(1.625rem,3vw,2.5rem); line-height:1.2; font-weight:700; letter-spacing:-0.025em}
+.section-title{font-size:clamp(1.625rem,3vw,2.5rem); line-height:1.2; font-weight:600; letter-spacing:-0.025em}
 .section__head p{max-width:52ch}
 
 /* ---------- Work ---------- */
@@ -110,10 +113,10 @@ a.card:hover{transform:translateY(-3px); box-shadow:0 8px 24px rgba(32,39,51,.06
 .card__media{padding:16px; background:var(--bg); border-bottom:1px solid var(--line); min-width:0}
 .card--feature .card__media{border-bottom:0; border-left:1px solid var(--line); order:2; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; align-items:center}
 .card__body{padding:clamp(20px,3vw,32px); display:grid; gap:12px; align-content:start; min-width:0}
-.project-title{font-size:clamp(1.5rem,2.5vw,2.125rem); line-height:1.22; font-weight:700; letter-spacing:-0.025em}
-.card-title{font-size:clamp(1.25rem,2vw,1.625rem); line-height:1.3; font-weight:700; letter-spacing:-0.015em}
+.project-title{font-size:clamp(1.5rem,2.5vw,2.125rem); line-height:1.22; font-weight:600; letter-spacing:-0.025em}
+.card-title{font-size:clamp(1.25rem,2vw,1.625rem); line-height:1.3; font-weight:600; letter-spacing:-0.015em}
 .card__text{color:var(--muted); max-width:60ch}
-.more{display:inline-flex; align-items:center; gap:6px; font-weight:700; color:var(--accent); margin-top:4px}
+.more{display:inline-flex; align-items:center; gap:6px; font-weight:600; color:var(--accent); margin-top:4px}
 .more svg{width:16px; height:16px; transition:transform 150ms ease}
 a.card:hover .more svg{transform:translateX(3px)}
 .flow3{display:grid; grid-template-columns:1fr auto 1fr auto 1fr; gap:6px; align-items:center}
@@ -133,9 +136,9 @@ a.card:hover .more svg{transform:translateX(3px)}
 .game img{display:block; width:100%; height:auto; aspect-ratio:16/10; object-fit:cover; border-bottom:1px solid var(--line)}
 .game__body{padding:20px; display:grid; gap:10px; align-content:start; flex:1}
 .game dl{margin:0; display:grid; gap:8px}
-.game dt{font-size:.8125rem; font-weight:700; color:var(--muted)}
+.game dt{font-size:.8125rem; font-weight:600; color:var(--muted)}
 .game dd{margin:0}
-.game a{font-weight:700; color:var(--accent); text-decoration:none; display:inline-flex; align-items:center; min-height:44px; margin-top:auto}
+.game a{font-weight:600; color:var(--accent); text-decoration:none; display:inline-flex; align-items:center; min-height:44px; margin-top:auto}
 .game a:hover{text-decoration:underline}
 .archive{margin-top:24px; background:var(--card); border:1px solid var(--line); border-radius:var(--r-card); padding:18px 20px; display:grid; gap:6px}
 .archive h3{font-size:1rem}
@@ -143,17 +146,22 @@ a.card:hover .more svg{transform:translateX(3px)}
 
 /* ---------- About / contact ---------- */
 .about{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(24px,5vw,64px)}
-.about__lead{font-size:clamp(1.3rem,2.4vw,1.75rem); line-height:1.4; font-weight:700; letter-spacing:-0.02em}
-.path{margin:0; padding:0; list-style:none; display:grid; gap:10px}
-.path li{display:grid; grid-template-columns:28px 1fr; gap:12px; align-items:start; background:var(--card); border:1px solid var(--line); border-radius:var(--r-ctl); padding:14px 16px}
-.path span{width:28px; height:28px; border-radius:50%; background:var(--tint); color:var(--accent); font-weight:800; display:grid; place-items:center; font-size:.85rem}
+.about__lead{font-size:clamp(1.3rem,2.4vw,1.75rem); line-height:1.45; font-weight:500; letter-spacing:-0.02em}
+.path{margin:0; padding:8px 0 0; list-style:none; display:grid; gap:0; align-self:start}
+.path li{position:relative; display:grid; grid-template-columns:24px 1fr; gap:16px; padding-bottom:28px}
+.path li:last-child{padding-bottom:0}
+.path li:not(:last-child)::after{content:""; position:absolute; left:11px; top:20px; bottom:-4px; border-left:1.5px dashed var(--slot)}
+.path span{position:relative; z-index:1; width:12px; height:12px; margin:5px 0 0 6px; border-radius:50%; background:var(--bg); border:2px solid var(--slot); font-size:0}
+.path li:last-child span{background:var(--accent); border-color:var(--accent); box-shadow:0 0 0 4px var(--tint)}
+.path b{font-size:1.05rem; font-weight:600}
+.path p{margin-top:2px}
 .edu{margin-top:18px; font-weight:600}
 .contact{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); gap:28px; align-items:start}
 .links{display:grid; gap:10px}
 .row{display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px; min-height:56px; background:var(--card); border:1px solid var(--line); border-radius:var(--r-ctl); padding:8px 16px}
 .row > span:first-child{min-width:80px; color:var(--muted); font-size:.875rem; font-weight:600}
 .row code{font:600 1rem/1.3 var(--font-en); user-select:all; word-break:break-all}
-.row a{font-weight:700; color:var(--accent); text-decoration:none; display:inline-flex; align-items:center; min-height:44px}
+.row a{font-weight:600; color:var(--accent); text-decoration:none; display:inline-flex; align-items:center; min-height:44px}
 .row a:hover{text-decoration:underline}
 .mini{min-height:40px; padding:0 14px; font-size:.875rem}
 .status{color:var(--accent); font-size:.875rem; font-weight:600}
@@ -161,26 +169,26 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
 
 /* ---------- Case study ---------- */
 .case{padding-block:clamp(32px,6vw,72px)}
-.back{display:inline-flex; align-items:center; gap:6px; min-height:44px; text-decoration:none; color:var(--muted); font-weight:700}
+.back{display:inline-flex; align-items:center; gap:6px; min-height:44px; text-decoration:none; color:var(--muted); font-weight:600}
 .back:hover{color:var(--ink)}
-.case h1{font-size:clamp(2.125rem,5vw,3.75rem); line-height:1.1; font-weight:800; letter-spacing:-0.04em; margin:14px 0}
+.case h1{font-size:clamp(2.125rem,5vw,3.75rem); line-height:1.1; font-weight:600; letter-spacing:-0.04em; margin:14px 0}
 :lang(ko) .case h1{letter-spacing:-0.03em}
 .facts{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--r-ctl); overflow:hidden; margin:28px 0}
 .facts div{background:var(--card); padding:14px 16px; display:grid; gap:4px; min-width:0}
 .facts dt{font-size:.8125rem; color:var(--muted); font-weight:600}
-.facts dd{margin:0; font-weight:700; font-size:.95rem}
+.facts dd{margin:0; font-weight:600; font-size:.95rem}
 .todo{color:var(--accent); font-weight:600; border-bottom:1.5px dashed var(--slot)}
 .gallery{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(12px,3vw,32px); padding:clamp(20px,4vw,40px); background:var(--card); border:1px solid var(--line); border-radius:var(--r-card); margin-bottom:56px}
 .gallery figure{margin:0; display:grid; gap:10px; justify-items:center}
 .gallery .shot{width:min(100%,220px)}
-.gallery figcaption{font-weight:700; font-size:.9rem}
+.gallery figcaption{font-weight:600; font-size:.9rem}
 .case__grid{display:grid; grid-template-columns:200px minmax(0,1fr); gap:clamp(24px,5vw,64px); align-items:start}
 .toc{position:sticky; top:calc(env(safe-area-inset-top, 0px) + 84px); display:grid; gap:2px}
 .toc a{color:var(--muted); text-decoration:none; padding:8px 12px; border-left:2px solid var(--line); font-size:.92rem; font-weight:600}
 .toc a:hover{color:var(--ink); border-left-color:var(--accent)}
 .chapters{display:grid; gap:56px}
 .chapter{scroll-margin-top:88px; display:grid; gap:14px}
-.chapter h2{font-size:clamp(1.4rem,2.4vw,1.75rem); font-weight:700; letter-spacing:-0.02em}
+.chapter h2{font-size:clamp(1.4rem,2.4vw,1.75rem); font-weight:600; letter-spacing:-0.02em}
 .chapter p,.chapter li{max-width:66ch}
 .chapter ul{margin:0; padding-left:20px; display:grid; gap:6px}
 .flows{display:grid; gap:10px}
@@ -194,14 +202,19 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
 .states figure{margin:0; display:grid; gap:8px; justify-items:center}
 .states .shot{width:min(100%,190px); border-width:5px; border-radius:18px}
 .states .card-shot{width:100%; height:auto; border-radius:12px; border:1px solid var(--line); background:var(--card)}
-.states figcaption{font-size:.8rem; font-weight:700; text-align:center}
+.states figcaption{font-size:.8rem; font-weight:600; text-align:center}
 .states figcaption span{display:block; font-weight:500; color:var(--muted)}
 .states .prep{grid-column:1/-1; justify-self:center; width:min(100%,440px)}
 .card--wide{grid-column:1/-1}
 .tc{display:grid; gap:18px}
-.tc-line{display:grid; grid-template-columns:2fr 3fr; gap:20px; align-items:start}
-.tc-line--b{grid-template-columns:4fr 1fr}
-.tc-g h4{margin:0 0 8px; font-size:.8rem; font-weight:700; color:var(--muted)}
+.tc-line{display:grid; grid-template-columns:2fr 4fr; gap:20px; align-items:start}
+.tc-line--b{grid-template-columns:3fr 3fr; align-items:center}
+.tc-body{display:grid; gap:12px; padding:0 clamp(0px,2vw,24px)}
+.card--split{display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}
+.card--split .card__media{border-bottom:0; border-right:1px solid var(--line)}
+.card--split .card__body{align-content:center}
+@media (max-width:760px){.card--split{grid-template-columns:1fr}.card--split .card__media{border-right:0; border-bottom:1px solid var(--line)}.tc-body{padding:4px 0 0}}
+.tc-g h4{margin:0 0 8px; font-size:.8rem; font-weight:600; color:var(--muted)}
 .tc-row{display:grid; grid-template-columns:repeat(var(--n),minmax(0,1fr)); gap:10px}
 .tc-stack{display:grid; gap:10px}
 .zoom{display:block; width:100%; padding:0; border:1px solid var(--line); border-radius:var(--r-ctl); background:var(--card); overflow:hidden; cursor:zoom-in; transition:transform 160ms ease, box-shadow 160ms ease}
@@ -221,7 +234,7 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
 .decision h3::before{counter-increment:d; content:counter(d) ". "; color:var(--accent)}
 .decision dl{margin:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px}
 .decision dl div{background:var(--bg); border-radius:8px; padding:8px 10px; min-width:0}
-.decision dt{font-size:.75rem; font-weight:700; color:var(--muted)}
+.decision dt{font-size:.75rem; font-weight:600; color:var(--muted)}
 .decision dd{margin:0; font-size:.85rem}
 .split{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
 .split div{background:var(--card); border:1px solid var(--line); border-radius:var(--r-ctl); padding:16px 18px}
@@ -244,7 +257,7 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
   .menu-btn{display:inline-flex}
   .menu{display:none; position:absolute; top:100%; left:0; right:0; flex-direction:column; background:var(--card); border:1px solid var(--line); border-radius:var(--r-ctl); padding:6px; box-shadow:0 12px 28px rgba(32,39,51,.08)}
   .menu.open{display:flex}
-  .hero{grid-template-columns:1fr}
+  .hero{grid-template-columns:1fr; min-height:0}
   .screens figure:nth-child(2){transform:none}
   .work,.games,.about,.contact,.split{grid-template-columns:1fr}
   .games .game:first-child{grid-column:auto}
@@ -290,19 +303,18 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
 <div id="view-home">
   <section class="band"><div class="wrap hero">
     <div class="hero__copy">
-      <p class="meta">UI/UX DESIGN · INTERACTIVE PROTOTYPING</p>
+      <p class="meta" data-i18n="heroEy">UI/UX design and interactive prototyping</p>
       <h1 class="hero-title" data-i18n="heroH">I design it. I build it.</h1>
-      <p class="body-copy" data-i18n="heroP">From gameplay systems to functional mobile prototypes, I combine visual design and interactive technology to build experiences people can use.</p>
-      <ul class="badges" aria-label="Focus areas"><li>UI/UX</li><li>Interactive Prototyping</li><li>Visual Design</li></ul>
+      <p class="body-copy" data-i18n="heroP">I design things people use and then build them myself: TopTrip, a group tour app tested on real phones, campaign visuals for a Korean-American travel agency, and games in Unity.</p>
       <div class="ctas">
         <a class="btn btn--solid" href="#work" data-i18n="cta1">Explore my work</a>
         <a class="btn btn--ghost" href="#toptrip" data-i18n="cta2">Read the TopTrip case study</a>
       </div>
     </div>
-    <div class="screens" aria-label="TopTrip app screens">
-      <figure><img class="shot" src="assets/img/tt_home.webp" width="540" height="1115" alt="TopTrip traveler home before departure showing the D-20 countdown, quick actions and flights" fetchpriority="high"><figcaption data-i18n="capHome">Traveler home</figcaption></figure>
-      <figure><img class="shot" src="assets/img/tt_map.webp" width="540" height="1115" alt="TopTrip day 9 schedule with route map to Plitvice Lakes"><figcaption data-i18n="capMap">Trip map</figcaption></figure>
-      <figure><img class="shot" src="assets/img/tt_meet.webp" width="540" height="1115" alt="Meeting alert in group chat, confirmed by 1 of 1 traveler"><figcaption data-i18n="capAtt">Meeting check-in</figcaption></figure>
+    <div class="screens" aria-label="TopTrip home before, during and after a trip">
+      <figure><img class="shot" src="assets/img/tt_home.webp" width="540" height="1115" alt="TopTrip home before departure: D-20 countdown, quick actions and flights" fetchpriority="high"><figcaption><i class="stop" aria-hidden="true"></i><span data-i18n="capBefore">Before · D-20</span></figcaption></figure>
+      <figure><img class="shot" src="assets/img/tt_during.webp" width="540" height="1115" alt="TopTrip home during the trip: day 3, today’s route Seoul to Jeonju and tonight’s hotel"><figcaption><i class="stop stop--now" aria-hidden="true"></i><span data-i18n="capDuring">During · day 3</span></figcaption></figure>
+      <figure><img class="shot" src="assets/img/tt_done.webp" width="540" height="1115" alt="TopTrip home after the trip: 11 days, 28 places and a Replay trip button"><figcaption><i class="stop" aria-hidden="true"></i><span data-i18n="capAfter">After · replay</span></figcaption></figure>
     </div>
   </div></section>
 
@@ -328,7 +340,7 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
 
       
 
-      <article class="card">
+      <article class="card card--wide card--split">
         <div class="card__media">
           <div class="trio trio--posters">
             <img class="lm" src="assets/img/lm_en_bunsik.webp" data-en="assets/img/lm_en_bunsik.webp" data-ko="assets/img/lm_ko_bunsik.webp" width="620" height="877" alt="Little Moon snack bar poster in red" loading="lazy">
@@ -346,15 +358,13 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
       <article class="card card--wide">
         <div class="card__media">
           <div class="tc">
-            <div class="tc-line"><div class="tc-g" style="--n:2"><h4 data-i18n="tcAd">Newspaper ads</h4><div class="tc-row"><button type="button" class="zoom" data-full="assets/img/campaign/ad_focus.webp" aria-label="Newspaper ad: Spain & Portugal and Alaska aurora features with tour listings (open full size)"><img src="assets/img/campaign/ad_focus_t.webp" width="400" height="500" alt="Newspaper ad: Spain & Portugal and Alaska aurora features with tour listings" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/campaign/ad_signature.webp" aria-label="Newspaper ad: 2026–27 signature tours and East Coast Christmas specials (open full size)"><img src="assets/img/campaign/ad_signature_t.webp" width="400" height="500" alt="Newspaper ad: 2026–27 signature tours and East Coast Christmas specials" loading="lazy"></button></div></div>
-            <div class="tc-g" style="--n:3"><h4 data-i18n="tcSn">Social posts</h4><div class="tc-row"><button type="button" class="zoom" data-full="assets/img/campaign/sn_patagonia.webp" aria-label="Social post styled as a phone lock screen for an 11-night Patagonia tour (open full size)"><img src="assets/img/campaign/sn_patagonia_t.webp" width="400" height="500" alt="Social post styled as a phone lock screen for an 11-night Patagonia tour" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/campaign/sn_italy.webp" aria-label="Social post for an 8-day Christmas Italy tour with companion discount (open full size)"><img src="assets/img/campaign/sn_italy_t.webp" width="400" height="500" alt="Social post for an 8-day Christmas Italy tour with companion discount" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/campaign/sn_greece.webp" aria-label="Social post for a 13-day Greece & Türkiye tour with special price (open full size)"><img src="assets/img/campaign/sn_greece_t.webp" width="400" height="500" alt="Social post for a 13-day Greece & Türkiye tour with special price" loading="lazy"></button></div></div></div>
-            <div class="tc-line tc-line--b"><div class="tc-g" style="--n:4"><h4 data-i18n="tcIt">Itinerary sheets</h4><div class="tc-row"><button type="button" class="zoom" data-full="assets/img/campaign/it_spec_1d.webp" aria-label="Itinerary sheet: Christmas Spectacular day trip (open full size)"><img src="assets/img/campaign/it_spec_1d_t.webp" width="400" height="500" alt="Itinerary sheet: Christmas Spectacular day trip" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/campaign/it_spec_2d.webp" aria-label="Itinerary sheet: Christmas Spectacular 2-day trip (open full size)"><img src="assets/img/campaign/it_spec_2d_t.webp" width="400" height="500" alt="Itinerary sheet: Christmas Spectacular 2-day trip" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/campaign/it_goodbye_ny.webp" aria-label="Itinerary sheet: Goodbye 2026 New York 2-day trip (open full size)"><img src="assets/img/campaign/it_goodbye_ny_t.webp" width="400" height="500" alt="Itinerary sheet: Goodbye 2026 New York 2-day trip" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/campaign/it_busch.webp" aria-label="Itinerary sheet: Christmas Town at Busch Gardens day trip (open full size)"><img src="assets/img/campaign/it_busch_t.webp" width="400" height="500" alt="Itinerary sheet: Christmas Town at Busch Gardens day trip" loading="lazy"></button></div></div></div>
-          </div>
-        </div>
-        <div class="card__body">
+            <div class="tc-line"><div class="tc-g" style="--n:2"><h4 data-i18n="tcAd">Newspaper ads</h4><div class="tc-row"><button type="button" class="zoom" data-full="assets/img/campaign/ad_focus.webp" aria-label="Newspaper ad: Spain & Portugal and Alaska aurora features with tour listings (open full size)"><img src="assets/img/campaign/ad_focus_t.webp" width="400" height="500" alt="Newspaper ad: Spain & Portugal and Alaska aurora features with tour listings" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/campaign/ad_signature.webp" aria-label="Newspaper ad: 2026–27 signature tours and East Coast Christmas specials (open full size)"><img src="assets/img/campaign/ad_signature_t.webp" width="400" height="500" alt="Newspaper ad: 2026–27 signature tours and East Coast Christmas specials" loading="lazy"></button></div></div><div class="tc-g" style="--n:4"><h4 data-i18n="tcIt">Itinerary sheets</h4><div class="tc-row"><button type="button" class="zoom" data-full="assets/img/campaign/it_spec_1d.webp" aria-label="Itinerary sheet: Christmas Spectacular day trip (open full size)"><img src="assets/img/campaign/it_spec_1d_t.webp" width="400" height="500" alt="Itinerary sheet: Christmas Spectacular day trip" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/campaign/it_spec_2d.webp" aria-label="Itinerary sheet: Christmas Spectacular 2-day trip (open full size)"><img src="assets/img/campaign/it_spec_2d_t.webp" width="400" height="500" alt="Itinerary sheet: Christmas Spectacular 2-day trip" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/campaign/it_goodbye_ny.webp" aria-label="Itinerary sheet: Goodbye 2026 New York 2-day trip (open full size)"><img src="assets/img/campaign/it_goodbye_ny_t.webp" width="400" height="500" alt="Itinerary sheet: Goodbye 2026 New York 2-day trip" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/campaign/it_busch.webp" aria-label="Itinerary sheet: Christmas Town at Busch Gardens day trip (open full size)"><img src="assets/img/campaign/it_busch_t.webp" width="400" height="500" alt="Itinerary sheet: Christmas Town at Busch Gardens day trip" loading="lazy"></button></div></div></div>
+            <div class="tc-line tc-line--b"><div class="tc-g" style="--n:3"><h4 data-i18n="tcSn">Social posts</h4><div class="tc-row"><button type="button" class="zoom" data-full="assets/img/campaign/sn_patagonia.webp" aria-label="Social post styled as a phone lock screen for an 11-night Patagonia tour (open full size)"><img src="assets/img/campaign/sn_patagonia_t.webp" width="400" height="500" alt="Social post styled as a phone lock screen for an 11-night Patagonia tour" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/campaign/sn_italy.webp" aria-label="Social post for an 8-day Christmas Italy tour with companion discount (open full size)"><img src="assets/img/campaign/sn_italy_t.webp" width="400" height="500" alt="Social post for an 8-day Christmas Italy tour with companion discount" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/campaign/sn_greece.webp" aria-label="Social post for a 13-day Greece & Türkiye tour with special price (open full size)"><img src="assets/img/campaign/sn_greece_t.webp" width="400" height="500" alt="Social post for a 13-day Greece & Türkiye tour with special price" loading="lazy"></button></div></div><div class="tc-body">
           <p class="meta">Visual Design · Travel</p>
           <h3 class="card-title" data-i18n="tcT">Travel Campaign Designs</h3>
           <p class="card__text" data-i18n="tcCard">Newspaper ads, itinerary sheets and social posts for a Korean-American travel agency. Places, dates and prices are checked before release. Select an image to see it full size.</p>
+        </div></div>
+          </div>
         </div>
       </article>
 
@@ -507,7 +517,7 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
     skip:"본문으로 건너뛰기", notice:"미리보기입니다. TopTrip 화면은 10월 26일 테스트 녹화에서 가져왔고, 다른 사람 이름과 실시간 지도는 흐림 처리했습니다. 점선 상자는 아직 필요한 파일입니다.",
     navWork:"작업", navAbout:"소개", navContact:"연락",
     heroH:"디자인하고, 직접 구현합니다.",
-    heroP:"게임 시스템 제작에서 출발해 모바일 앱과 업무 도구까지, 시각 디자인과 인터랙티브 기술을 연결해 실제 작동하는 경험을 만듭니다.",
+    heroEy:"UI/UX 디자인 · 인터랙티브 프로토타입", heroP:"사람들이 쓰는 것을 설계하고 직접 만듭니다. 실제 폰에서 테스트한 단체여행 앱 TopTrip, 한인 여행사의 캠페인 디자인, 그리고 Unity 게임까지.", capBefore:"여행 전 · D-20", capDuring:"여행 중 · 3일차", capAfter:"여행 종료 · 다시보기",
     cta1:"대표 작업 보기", cta2:"TopTrip 사례 보기",
     capHome:"고객 홈", capMap:"여행 지도", capAtt:"집합 확인", capGuide:"가이드 위치 (지도 흐림 처리)", capSpot:"관광지 상세", capSos:"비상 연락",
     workH:"대표 작업", workP:"제가 디자인한 것, 직접 만든 것, 각 프로젝트의 현재 상태를 보여 드립니다.",
