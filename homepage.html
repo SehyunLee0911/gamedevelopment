@@ -190,6 +190,32 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
 .steps li{background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:4px 10px; font-size:.875rem; font-weight:600}
 .steps li + li::before{content:"›"; color:var(--muted); margin-right:8px; margin-left:-2px}
 .join{font-size:.875rem; color:var(--muted)}
+.states{display:grid; grid-template-columns:1fr 1.35fr 1fr; gap:clamp(10px,2.4vw,24px); align-items:start; background:var(--tint); border-radius:12px; padding:clamp(12px,2.4vw,22px)}
+.states figure{margin:0; display:grid; gap:8px; justify-items:center}
+.states .shot{width:min(100%,190px); border-width:5px; border-radius:18px}
+.states .card-shot{width:100%; height:auto; border-radius:12px; border:1px solid var(--line); background:var(--card)}
+.states figcaption{font-size:.8rem; font-weight:700; text-align:center}
+.states figcaption span{display:block; font-weight:500; color:var(--muted)}
+.slot-during{width:100%; margin-top:14px; padding:22px 12px; border:1.5px dashed var(--slot); border-radius:12px; text-align:center; font-size:.85rem; background:var(--card)}
+@media (max-width:640px){.states{grid-template-columns:1fr 1fr}.states .prep{grid-column:1/-1; grid-row:2}}
+.card--wide{grid-column:1/-1}
+.tc{display:grid; gap:18px}
+.tc-line{display:grid; grid-template-columns:2fr 3fr; gap:20px; align-items:start}
+.tc-line--b{grid-template-columns:4fr 1.6fr}
+.tc-g h4{margin:0 0 8px; font-size:.8rem; font-weight:700; color:var(--muted)}
+.tc-row{display:grid; grid-template-columns:repeat(var(--n),minmax(0,1fr)); gap:10px}
+.tc-stack{display:grid; gap:10px}
+.zoom{display:block; width:100%; padding:0; border:1px solid var(--line); border-radius:var(--r-ctl); background:var(--card); overflow:hidden; cursor:zoom-in; transition:transform 160ms ease, box-shadow 160ms ease}
+.zoom:hover{transform:translateY(-2px); box-shadow:0 6px 18px rgba(32,39,51,.12)}
+.zoom:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.zoom img{display:block; width:100%; height:auto}
+.lb{border:0; padding:0; background:transparent; max-width:min(96vw,1100px); max-height:94vh; overflow:visible}
+.lb::backdrop{background:rgba(20,24,31,.86)}
+.lb img{display:block; max-width:min(96vw,1100px); width:auto; height:auto; border-radius:8px; margin:auto; background:#fff}
+.lb-box{max-height:92vh; overflow:auto; overscroll-behavior:contain; border-radius:8px}
+.lb-x{position:fixed; top:12px; right:12px; width:44px; height:44px; border-radius:50%; border:0; background:#fff; color:var(--ink); font-size:1.4rem; line-height:1; cursor:pointer}
+@media (max-width:760px){.tc-line,.tc-line--b{grid-template-columns:1fr}.tc-g[style*="--n:4"] .tc-row{grid-template-columns:1fr 1fr}.tc-stack{grid-template-columns:1fr 1fr; align-items:start}}
+@media (prefers-reduced-motion:reduce){.zoom{transition:none}.zoom:hover{transform:none}}
 .decisions{display:grid; gap:12px; counter-reset:d}
 .decision{background:var(--card); border:1px solid var(--line); border-radius:var(--r-card); padding:18px 20px; display:grid; gap:10px}
 .decision h3{font-size:1.1rem; line-height:1.35}
@@ -275,7 +301,7 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
       </div>
     </div>
     <div class="screens" aria-label="TopTrip app screens">
-      <figure><img class="shot" src="assets/img/tt_home.webp" width="540" height="1115" alt="TopTrip traveler home showing the 14-day trip, quick actions and today’s notices" fetchpriority="high"><figcaption data-i18n="capHome">Traveler home</figcaption></figure>
+      <figure><img class="shot" src="assets/img/tt_home.webp" width="540" height="1115" alt="TopTrip traveler home before departure showing the D-20 countdown, quick actions and flights" fetchpriority="high"><figcaption data-i18n="capHome">Traveler home</figcaption></figure>
       <figure><img class="shot" src="assets/img/tt_map.webp" width="540" height="1115" alt="TopTrip day 9 schedule with route map to Plitvice Lakes"><figcaption data-i18n="capMap">Trip map</figcaption></figure>
       <figure><img class="shot" src="assets/img/tt_meet.webp" width="540" height="1115" alt="Meeting alert in group chat, confirmed by 1 of 1 traveler"><figcaption data-i18n="capAtt">Meeting check-in</figcaption></figure>
     </div>
@@ -318,18 +344,19 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
         </div>
       </article>
 
-      <article class="card">
+      <article class="card card--wide">
         <div class="card__media">
-          <div class="trio">
-            <img src="assets/img/travel_christmas.webp" width="600" height="800" alt="Christmas tour itinerary poster" loading="lazy">
-            <img src="assets/img/travel_caribbean_route.webp" width="797" height="700" alt="Western Caribbean cruise route map" loading="lazy">
-            <img src="assets/img/travel_nile.webp" width="800" height="450" alt="Nile felucca tour thumbnail" loading="lazy">
+          <div class="tc">
+            <div class="tc-line"><div class="tc-g" style="--n:2"><h4 data-i18n="tcAd">Newspaper ads</h4><div class="tc-row"><button type="button" class="zoom" data-full="assets/img/campaign/ad_focus.webp" aria-label="Newspaper ad: Spain & Portugal and Alaska aurora features with tour listings (open full size)"><img src="assets/img/campaign/ad_focus_t.webp" width="400" height="500" alt="Newspaper ad: Spain & Portugal and Alaska aurora features with tour listings" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/campaign/ad_signature.webp" aria-label="Newspaper ad: 2026–27 signature tours and East Coast Christmas specials (open full size)"><img src="assets/img/campaign/ad_signature_t.webp" width="400" height="500" alt="Newspaper ad: 2026–27 signature tours and East Coast Christmas specials" loading="lazy"></button></div></div>
+            <div class="tc-g" style="--n:3"><h4 data-i18n="tcSn">Social posts</h4><div class="tc-row"><button type="button" class="zoom" data-full="assets/img/campaign/sn_patagonia.webp" aria-label="Social post styled as a phone lock screen for an 11-night Patagonia tour (open full size)"><img src="assets/img/campaign/sn_patagonia_t.webp" width="400" height="500" alt="Social post styled as a phone lock screen for an 11-night Patagonia tour" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/campaign/sn_italy.webp" aria-label="Social post for an 8-day Christmas Italy tour with companion discount (open full size)"><img src="assets/img/campaign/sn_italy_t.webp" width="400" height="500" alt="Social post for an 8-day Christmas Italy tour with companion discount" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/campaign/sn_greece.webp" aria-label="Social post for a 13-day Greece & Türkiye tour with special price (open full size)"><img src="assets/img/campaign/sn_greece_t.webp" width="400" height="500" alt="Social post for a 13-day Greece & Türkiye tour with special price" loading="lazy"></button></div></div></div>
+            <div class="tc-line tc-line--b"><div class="tc-g" style="--n:4"><h4 data-i18n="tcIt">Itinerary sheets</h4><div class="tc-row"><button type="button" class="zoom" data-full="assets/img/campaign/it_spec_1d.webp" aria-label="Itinerary sheet: Christmas Spectacular day trip (open full size)"><img src="assets/img/campaign/it_spec_1d_t.webp" width="400" height="500" alt="Itinerary sheet: Christmas Spectacular day trip" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/campaign/it_spec_2d.webp" aria-label="Itinerary sheet: Christmas Spectacular 2-day trip (open full size)"><img src="assets/img/campaign/it_spec_2d_t.webp" width="400" height="500" alt="Itinerary sheet: Christmas Spectacular 2-day trip" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/campaign/it_goodbye_ny.webp" aria-label="Itinerary sheet: Goodbye 2026 New York 2-day trip (open full size)"><img src="assets/img/campaign/it_goodbye_ny_t.webp" width="400" height="500" alt="Itinerary sheet: Goodbye 2026 New York 2-day trip" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/campaign/it_busch.webp" aria-label="Itinerary sheet: Christmas Town at Busch Gardens day trip (open full size)"><img src="assets/img/campaign/it_busch_t.webp" width="400" height="500" alt="Itinerary sheet: Christmas Town at Busch Gardens day trip" loading="lazy"></button></div></div>
+            <div class="tc-g tc-g--maps"><h4 data-i18n="tcMap">Maps &amp; thumbnails</h4><div class="tc-stack"><button type="button" class="zoom" data-full="assets/img/travel_caribbean_route.webp" aria-label="Western Caribbean cruise route map (open full size)"><img src="assets/img/travel_caribbean_route.webp" width="797" height="700" alt="Western Caribbean cruise route map" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/travel_nile.webp" aria-label="Nile felucca tour thumbnail (open full size)"><img src="assets/img/travel_nile.webp" width="800" height="450" alt="Nile felucca tour thumbnail" loading="lazy"></button></div></div></div>
           </div>
         </div>
         <div class="card__body">
           <p class="meta">Visual Design · Travel</p>
-          <h3 class="card-title">Travel Campaign Designs</h3>
-          <p class="card__text" data-i18n="tcCard">Itinerary posters, route maps and promo images for tour products. Places, dates and routes are checked before release.</p>
+          <h3 class="card-title" data-i18n="tcT">Travel Campaign Designs</h3>
+          <p class="card__text" data-i18n="tcCard">Newspaper ads, itinerary sheets, social posts and route maps for a Korean-American travel agency. Places, dates and prices are checked before release. Select an image to see it full size.</p>
         </div>
       </article>
 
@@ -426,7 +453,12 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
         <section class="chapter" id="c-decisions"><h2 data-i18n="hDec">Key decisions</h2>
           <div class="decisions">
             <div class="decision"><h3 data-i18n="d1">Home changes before, during and after the trip</h3>
-              <dl><div><dt data-i18n="dP">Problem</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div><div><dt data-i18n="dO">Options</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div><div><dt data-i18n="dC">Choice</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div><div><dt data-i18n="dR">Result / next check</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div></dl></div>
+              <div class="states">
+                <figure><img class="shot" src="assets/img/tt_home.webp" width="540" height="1115" alt="Home before departure: D-20 countdown, 11-day itinerary, quick actions and flights" loading="lazy"><figcaption data-i18n="stBefore">Before the trip<span>D-day, flights</span></figcaption></figure>
+                <figure class="prep"><img class="card-shot" src="assets/img/tt_prep.webp" width="720" height="413" alt="Trip prep card: items to pack, December weather, documents" loading="lazy"><figcaption data-i18n="stPrep">Before the trip<span>Prep list: packing, weather, documents</span></figcaption><div class="slot-during"><span class="todo" data-i18n="stDuring">During-trip home: screenshot to add</span></div></figure>
+                <figure><img class="shot" src="assets/img/tt_done.webp" width="540" height="1115" alt="Home after the trip: 11 days, 28 places visited and a Replay trip button" loading="lazy"><figcaption data-i18n="stAfter">After the trip<span>Summary, replay</span></figcaption></figure>
+              </div>
+              <dl><div><dt data-i18n="dP">Problem</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div><div><dt data-i18n="dO">Options</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div><div><dt data-i18n="dC">Choice</dt><dd data-i18n="d1C">Before departure, Home shows the countdown, flights and a prep list. When the trip ends, it switches to a summary of days and places with a Replay button.</dd></div><div><dt data-i18n="dR">Result / next check</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div></dl></div>
             <div class="decision"><h3 data-i18n="d2">Separate flows for travelers and guides on the same schedule data</h3>
               <dl><div><dt data-i18n="dP">Problem</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div><div><dt data-i18n="dO">Options</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div><div><dt data-i18n="dC">Choice</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div><div><dt data-i18n="dR">Result / next check</dt><dd><span class="todo" data-i18n="todo">To write</span></dd></div></dl></div>
             <div class="decision"><h3 data-i18n="d3">Meeting point and alerts always shown the same way</h3>
@@ -464,6 +496,7 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
   </div></article>
 </div>
 </main>
+<dialog class="lb" id="lb" aria-label="Full size image"><button type="button" class="lb-x" aria-label="Close">×</button><div class="lb-box"><img alt=""></div></dialog>
 
 <footer class="band"><div class="wrap">© 2026 Sehyun Lee</div></footer>
 
@@ -481,7 +514,7 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
     readCase:"사례 연구 보기", f1:"원본 PDF", f2:"편집 화면",
     docCard:"여행 일정 PDF를 편집하고 Excel·PowerPoint로 변환하는 도구입니다. 실제 입력, 편집 화면, 출력물로 보여 드립니다.",
     lmT:"리틀문방구 캠페인", lmRed:"분식 (빨강)", lmY:"치즈 (노랑)", lmB:"젤리 (하늘색)", lmCard:"리틀문방구의 말랑이 제품을 위한 포스터 3종입니다. 빨간 분식 메뉴판, 노란 크런치, 하늘색 젤리 포스터를 한국어·영어로 만들었습니다.",
-    tcCard:"여행 상품 일정표 포스터, 항로 지도, 홍보 이미지입니다. 장소, 날짜, 경로는 공개 전에 검수합니다.",
+    tcT:"여행 캠페인 디자인", tcAd:"신문 광고", tcSn:"SNS 게시물", tcIt:"일정표", tcMap:"지도·썸네일", tcCard:"한인 여행사의 신문 광고, 일정표, SNS 게시물, 항로 지도입니다. 장소, 날짜, 가격은 공개 전에 검수합니다. 이미지를 누르면 크게 볼 수 있어요.",
     gdCard:"게임 개발", gdText:"게임 시스템을 직접 구현한 Unity 프로젝트 3개입니다.", seeGames:"게임 보기",
     gamesH:"게임 개발", gamesP:"게임 시스템을 직접 구현한 Unity 프로젝트입니다.", myRole:"담당 역할", watch:"플레이 영상 보기",
     g1m:"2025 · 2D 플랫포머 슈팅", g1r:"게임 기획서를 쓰고, 궤적선이 있는 탱크 조준, 보스 패턴, 튜토리얼과 해금 시스템을 구현했습니다.",
@@ -501,7 +534,7 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
     uT:"고객", t1:"오늘", t2:"일정", t3:"지도", t4:"공지 / 채팅", t5:"긴급 연락",
     uG:"가이드", g1:"배정된 여행", g2:"명단", g3:"출석", g4:"집합 알림", g5:"채팅",
     uA:"관리자", a1:"여행 설정", a2:"일정 / 옵션", a3:"가이드 배정", a4:"경로 데이터",
-    d1:"여행 전·중·종료 상태에 따라 홈 정보를 바꿈", d2:"같은 일정 데이터를 고객과 가이드가 다른 흐름으로 사용", d3:"집합 장소와 알림을 항상 같은 방식으로 노출",
+    d1:"여행 전·중·종료 상태에 따라 홈 정보를 바꿈", d1C:"출발 전에는 D-day, 항공편, 준비물 목록을 보여주고, 여행이 끝나면 일수·방문지 요약과 '여행 다시보기' 버튼으로 바뀝니다.", stBefore:"여행 전<span>D-day, 항공편</span>", stPrep:"여행 전<span>준비물·날씨·서류</span>", stAfter:"여행 종료<span>요약, 다시보기</span>", stDuring:"여행 중 홈: 캡처 추가 예정", d2:"같은 일정 데이터를 고객과 가이드가 다른 흐름으로 사용", d3:"집합 장소와 알림을 항상 같은 방식으로 노출",
     dP:"문제", dO:"고려한 선택지", dC:"실제 선택", dR:"결과 / 추가 검증",
     demoP:"2026년 10월 26일 실기기 테스트 영상에서 37초를 골랐습니다. 소리와 자동재생은 없습니다.",
     ds1:"여행 카운트다운과 바로가기가 있는 고객 홈", ds2:"일자별 일정과 경로 지도", ds3:"전화·길찾기가 있는 가이드 위치", ds4:"단체 채팅의 집합 알림과 고객 확인", ds5:"비상 연락처",
@@ -526,6 +559,10 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
   var saved="en"; try{ saved=localStorage.getItem("lang")||"en"; }catch(e){}
   setLang(saved);
 
+  var lb=document.getElementById("lb"), lbImg=lb.querySelector("img");
+  document.addEventListener("click",function(e){ var z=e.target.closest(".zoom"); if(!z) return; lbImg.src=z.getAttribute("data-full"); lbImg.alt=z.querySelector("img").alt; if(lb.showModal) lb.showModal(); else window.open(z.getAttribute("data-full")); });
+  lb.addEventListener("click",function(e){ if(e.target===lb||e.target.closest(".lb-x")) lb.close(); });
+  lb.addEventListener("close",function(){ lbImg.removeAttribute("src"); });
   var menu=document.getElementById("menu"), mb=document.getElementById("menuBtn");
   mb.addEventListener("click",function(){ var o=menu.classList.toggle("open"); mb.setAttribute("aria-expanded",o?"true":"false"); mb.setAttribute("aria-label",o?"Close menu":"Open menu"); });
   menu.addEventListener("click",function(e){ if(e.target.tagName==="A"){ menu.classList.remove("open"); mb.setAttribute("aria-expanded","false"); } });
