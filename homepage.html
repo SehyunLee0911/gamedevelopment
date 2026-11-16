@@ -132,6 +132,9 @@ a.card:hover .more svg{transform:translateX(3px)}
 
 /* ---------- Games ---------- */
 .games{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px}
+.games--2{grid-template-columns:repeat(2,minmax(0,1fr)); margin-bottom:20px}
+.games.games--2 .game:first-child{grid-column:auto}
+.game__note{margin:0; font-size:.8125rem; color:var(--muted)}
 .game{background:var(--card); border:1px solid var(--line); border-radius:var(--r-card); overflow:hidden; display:flex; flex-direction:column}
 .game img{display:block; width:100%; height:auto; aspect-ratio:16/10; object-fit:cover; border-bottom:1px solid var(--line)}
 .game__body{padding:20px; display:grid; gap:10px; align-content:start; flex:1}
@@ -374,6 +377,18 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
 
   <section class="band section" id="games" aria-labelledby="games-h"><div class="wrap">
     <div class="section__head"><h2 class="section-title" id="games-h" data-i18n="gamesH">Game development</h2><p class="muted" data-i18n="gamesP">Unity projects where I built the gameplay systems.</p></div>
+    <div class="games games--2">
+      <article class="game"><img src="assets/img/game_arpia.webp" width="800" height="500" alt="Magic School Arpia remake title screen" loading="lazy">
+        <div class="game__body"><h3 class="card-title">Magic School Arpia Remake</h3><p class="muted" data-i18n="rm1m">2022 · Remake in Unity</p>
+          <dl><div><dt data-i18n="myRole">My role</dt><dd data-i18n="rm1r">Rebuilt Episode 0: turn-based duels, quests, NPC interaction, a sprite-layer system for the top-down view, typewriter dialogue and scene flow.</dd></div></dl>
+          <p class="game__note" data-i18n="rm1n">Fan remake for study. Original art and content belong to NCSOFT; it is not distributed or playable.</p>
+          <a href="https://www.youtube.com/watch?v=zRcMOqF0-zs" target="_blank" rel="noopener" data-i18n="watch">Watch gameplay video</a></div></article>
+      <article class="game"><img src="assets/img/game_mof.webp" width="800" height="500" alt="Master of Fantasy remake title screen" loading="lazy">
+        <div class="game__body"><h3 class="card-title">Master of Fantasy Remake</h3><p class="muted" data-i18n="rm2m">2022 · Remake in Unity</p>
+          <dl><div><dt data-i18n="myRole">My role</dt><dd data-i18n="rm2r">Built player movement, character sprite and animation swapping, minigames whose sprites change with difficulty, NPC interaction and scene flow.</dd></div></dl>
+          <p class="game__note" data-i18n="rm2n">Fan remake for study. Original art and content belong to BuddyBuddy; it is not distributed or playable.</p>
+          <a href="https://www.youtube.com/watch?v=JioguVBeclA" target="_blank" rel="noopener" data-i18n="watch">Watch gameplay video</a></div></article>
+    </div>
     <div class="games">
       <article class="game"><img src="assets/img/game_fruits_go_boom.webp" width="800" height="447" alt="Fruits Go Boom title screen" loading="lazy">
         <div class="game__body"><h3 class="card-title">Fruits Go Boom</h3><p class="muted" data-i18n="g1m">2025 · 2D platformer shooter</p>
@@ -387,11 +402,6 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
         <div class="game__body"><h3 class="card-title">37' 131'</h3><p class="muted" data-i18n="g3m">2024 · Educational puzzle about Dokdo</p>
           <dl><div><dt data-i18n="myRole">My role</dt><dd data-i18n="g3r">Built the dialogue and typewriter systems, an O/X quiz tied to health, camera moves and a Korean/English option.</dd></div></dl>
           <a href="https://www.youtube.com/watch?v=YQ5NrwZwJ54" target="_blank" rel="noopener" data-i18n="watch">Watch gameplay video</a></div></article>
-    </div>
-    <div class="archive">
-      <h3 data-i18n="archH">Archive: remakes (2022)</h3>
-      <ul><li data-i18n="arch1">Master of Fantasy Remake. Original art and content belong to BuddyBuddy; I programmed movement, sprite swapping, minigames and scene flow.</li>
-      <li data-i18n="arch2">Magic School Arpia Remake. Original art and content belong to NCSOFT; I programmed the turn-based duel, quest and sprite-layer systems.</li></ul>
     </div>
   </div></section>
 
@@ -531,6 +541,8 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
     g1m:"2025 · 2D 플랫포머 슈팅", g1r:"게임 기획서를 쓰고, 궤적선이 있는 탱크 조준, 보스 패턴, 튜토리얼과 해금 시스템을 구현했습니다.",
     g2m:"2025 · 카트 레이싱", g2r:"카트 이동과 슬립스트림을 구현하고, 버거 카트의 케첩·머스터드 능력을 기획하고 프로그래밍했습니다.",
     g3m:"2024 · 독도 교육용 퍼즐", g3r:"대화·타자기 효과 시스템, 체력이 걸린 O/X 퀴즈, 카메라 연출, 한/영 선택 기능을 구현했습니다.",
+    rm1m:"2022 · Unity 리메이크", rm1r:"에피소드 0을 재구현했습니다. 턴제 대결, 퀘스트, NPC 상호작용, 탑다운 시점용 스프라이트 레이어 시스템, 타자기 대사, 장면 전환을 만들었습니다.", rm1n:"학습용 팬 리메이크입니다. 원작 그래픽과 콘텐츠는 엔씨소프트 소유이며, 배포하거나 플레이를 제공하지 않습니다.",
+    rm2m:"2022 · Unity 리메이크", rm2r:"플레이어 이동, 캐릭터 스프라이트·애니메이션 교체, 난이도에 따라 스프라이트가 바뀌는 미니게임, NPC 상호작용, 장면 전환을 구현했습니다.", rm2n:"학습용 팬 리메이크입니다. 원작 그래픽과 콘텐츠는 버디버디 소유이며, 배포하거나 플레이를 제공하지 않습니다.",
     archH:"아카이브: 리메이크 (2022)",
     arch1:"마스터 오브 판타지 리메이크. 원작 그래픽과 콘텐츠는 버디버디 소유이며, 저는 이동, 스프라이트 교체, 미니게임, 장면 전환을 프로그래밍했습니다.",
     arch2:"마법학교 아르피아 리메이크. 원작 그래픽과 콘텐츠는 엔씨소프트 소유이며, 저는 턴제 대결, 퀘스트, 스프라이트 레이어 시스템을 프로그래밍했습니다.",
