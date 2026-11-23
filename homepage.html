@@ -194,6 +194,14 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
 .chapter h2{font-size:clamp(1.4rem,2.4vw,1.75rem); font-weight:600; letter-spacing:-0.02em}
 .chapter p,.chapter li{max-width:66ch}
 .chapter ul{margin:0; padding-left:20px; display:grid; gap:6px}
+.solved{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px}
+.sv{background:var(--card); border:1px solid var(--line); border-radius:var(--r-card); padding:18px 20px; display:grid; gap:10px; align-content:start}
+.sv h3{font-size:1rem; font-weight:600; line-height:1.4}
+.sv dl{margin:0; display:grid; gap:8px}
+.sv dt{font-size:.8125rem; font-weight:600; color:var(--muted)}
+.sv dd{margin:0; font-size:.94rem}
+.sv-also{color:var(--muted)}
+@media (max-width:760px){.solved{grid-template-columns:1fr}}
 .flows{display:grid; gap:10px}
 .flowrow{display:grid; grid-template-columns:96px minmax(0,1fr); gap:12px; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:var(--r-ctl); padding:12px 14px}
 .flowrow b{font-size:.9rem}
@@ -455,7 +463,7 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
       <div><dt data-i18n="fRoleT">Role</dt><dd data-i18n="fRole">UX/UI design, screen flows, prototype build</dd></div>
       <div><dt data-i18n="fTimeT">Timeline</dt><dd data-i18n="fTime">Started Sep 21, 2026</dd></div>
       <div><dt data-i18n="fTeamT">Team</dt><dd><span class="todo" data-i18n="confirm">To confirm</span></dd></div>
-      <div><dt data-i18n="fToolT">Tools / Tech</dt><dd><span class="todo" data-i18n="confirm">To confirm</span></dd></div>
+      <div><dt data-i18n="fToolT">Tools / Tech</dt><dd>React Native, Expo, TypeScript, Node.js, Express, Socket.IO</dd></div>
       <div><dt data-i18n="fStatT">Status</dt><dd data-i18n="fStat">Working prototype</dd></div>
     </dl>
     <div class="gallery">
@@ -468,7 +476,7 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
     </div>
     <div class="case__grid">
       <nav class="toc" aria-label="Case study sections">
-        <a href="#c-problem" data-i18n="hProblem">Problem</a><a href="#c-users" data-i18n="hUsers">Users</a><a href="#c-decisions" data-i18n="hDec">Key decisions</a><a href="#c-demo" data-i18n="hDemo">Functional demo</a><a href="#c-tech" data-i18n="hTech">Technical approach</a><a href="#c-limits" data-i18n="hLim">Limitations</a>
+        <a href="#c-problem" data-i18n="hProblem">Problem</a><a href="#c-users" data-i18n="hUsers">Users</a><a href="#c-decisions" data-i18n="hDec">Key decisions</a><a href="#c-demo" data-i18n="hDemo">Functional demo</a><a href="#c-solved" data-i18n="hSolved">Problems I solved</a><a href="#c-tech" data-i18n="hTech">Technical approach</a><a href="#c-limits" data-i18n="hLim">Limitations</a>
       </nav>
       <div class="chapters">
         <section class="chapter" id="c-problem"><h2 data-i18n="hProblem">Problem</h2>
@@ -516,6 +524,11 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
             </div>
           </div></section>
 
+        <section class="chapter" id="c-solved"><h2 data-i18n="hSolved">Problems I solved</h2>
+          <p class="muted" data-i18n="svP">Real issues from building and testing TopTrip. Each one was traced to its cause before it was fixed.</p>
+          <div class="solved"><article class="sv"><h3 data-i18n="sv1t">Console edits showed up late on phones</h3><dl><div><dt data-i18n="svLp">Problem</dt><dd data-i18n="sv1p">Photo and schedule changes appeared only after reloading the app.</dd></div><div><dt data-i18n="svLf">Fix</dt><dd data-i18n="sv1f">Each phone subscribes to the trip it is viewing. When the console saves, only those phones refresh about a second later.</dd></div><div><dt data-i18n="svLr">Result</dt><dd data-i18n="sv1r">Server tests pass and it works locally; production rollout is next.</dd></div></dl></article><article class="sv"><h3 data-i18n="sv2t">Guides could not check in travelers without the app</h3><dl><div><dt data-i18n="svLp">Problem</dt><dd data-i18n="sv2p">Attendance counted only travelers who had joined in the app.</dd></div><div><dt data-i18n="svLf">Fix</dt><dd data-i18n="sv2f">The office pastes a roster of names and phone numbers into the console. The app merges it with app users, removes duplicates, and lets the guide tap a name to call.</dd></div><div><dt data-i18n="svLr">Result</dt><dd data-i18n="sv2r">Confirmed by the office. Trips without a roster work as before.</dd></div></dl></article><article class="sv"><h3 data-i18n="sv3t">A new trip needed a new app release</h3><dl><div><dt data-i18n="svLp">Problem</dt><dd data-i18n="sv3p">All 33 trips were built into the app code.</dd></div><div><dt data-i18n="svLf">Fix</dt><dd data-i18n="sv3f">Moved trips to the server with draft, published and hidden states, migrated the 33 once, and kept the built-in copy only as a fallback.</dd></div><div><dt data-i18n="svLr">Result</dt><dd data-i18n="sv3r">The office adds and publishes trips from the console with no app update.</dd></div></dl></article><article class="sv"><h3 data-i18n="sv4t">A crash during a save could wipe chat history</h3><dl><div><dt data-i18n="svLc">Cause</dt><dd data-i18n="sv4c">Not simultaneous writes. A half-written file failed to load, the server started with an empty list, and the next save overwrote the real data.</dd></div><div><dt data-i18n="svLf">Fix</dt><dd data-i18n="sv4f">One write-then-rename function used by every store, so each file is always either the old version or the new one.</dd></div><div><dt data-i18n="svLr">Result</dt><dd data-i18n="sv4r">Fixed without an oversized database migration; server tests pass after deploy.</dd></div></dl></article><article class="sv"><h3 data-i18n="sv5t">Overseas photos landed on the wrong day in the trip replay</h3><dl><div><dt data-i18n="svLc">Cause</dt><dd data-i18n="sv5c">Photo times were read in the phone’s current time zone, not the destination’s.</dd></div><div><dt data-i18n="svLf">Fix</dt><dd data-i18n="sv5f">Work out the destination time zone from attraction coordinates, including daylight saving rules, and match each day in UTC.</dd></div><div><dt data-i18n="svLr">Result</dt><dd data-i18n="sv5r">Tests return the same days from phones set to different time zones.</dd></div></dl></article><article class="sv"><h3 data-i18n="sv6t">The bus icon flipped upside down on the map</h3><dl><div><dt data-i18n="svLc">Cause</dt><dd data-i18n="sv6c">Rotating an image can’t show left versus right, and angles near ±180° spun the long way round.</dd></div><div><dt data-i18n="svLf">Fix</dt><dd data-i18n="sv6f">Tilt is capped at ±80°. Past 90° the icon mirrors and tilts from the mirrored angle, so a left-right change is a single flip.</dd></div></dl></article></div>
+          <h3 data-i18n="svAlso">Also</h3><ul class="sv-also"><li data-i18n="sva1">Route lookups go through the server with daily limits and caching, so the paid map API can’t run up costs. Past the limit the app draws a simple curve instead.</li><li data-i18n="sva2">Login attempt limits, staff sign-ins that can be revoked, and encrypted backups.</li><li data-i18n="sva3">Login background video re-encoded from 17.4 MB to 2.5 MB.</li><li data-i18n="sva4">321 hard-coded colors across 37 files moved into one token file, ready for dark mode.</li><li data-i18n="sva5">Screen reader labels on icon buttons, text-size caps on single-line labels and larger touch areas.</li><li data-i18n="sva6">Replaced a mascot that looked too close to another creator’s character with three original characters drawn from the company logo.</li></ul></section>
+
         <section class="chapter" id="c-tech"><h2 data-i18n="hTech">Technical approach</h2>
           <div class="pipe" aria-label="Data flow"><span data-i18n="pp1">App screens</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span data-i18n="pp2">Server data</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span data-i18n="pp3">Other travelers’ and guide’s devices</span></div>
           <div class="split">
@@ -524,7 +537,7 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
           </div></section>
 
         <section class="chapter" id="c-limits"><h2 data-i18n="hLim">Limitations</h2>
-          <ul><li data-i18n="l1">Real-world testing with older travelers</li><li data-i18n="l2">Accessibility, text size and touch targets</li><li data-i18n="l3">Authentication, permissions, data security and privacy</li><li data-i18n="l4">Offline and unstable networks</li><li data-i18n="l5">Operational stability, monitoring and maintenance</li></ul>
+          <ul><li data-i18n="l1">Not yet tested on live trips with older travelers</li><li data-i18n="l2">Push notifications and Face ID not yet verified on a development build</li><li data-i18n="l3">The admin console needs access limits and individual guide accounts</li><li data-i18n="l4">Location sharing needs terms, consent and records before launch</li><li data-i18n="l5">Backup restore not yet rehearsed</li></ul>
           <p class="honest" data-i18n="honest">This is a working prototype that runs on real devices. It has not completed live customer operation or large-scale usability testing.</p></section>
       </div>
     </div>
@@ -566,6 +579,7 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
     contactH:"연락", contactP:"한국과 미국의 신입·주니어 UI/UX, 프로덕트 디자인, 인터랙티브 프로토타이핑 직무에 지원하고 있습니다.", copy:"복사",
     back:"전체 작업",
     fRoleT:"역할", fRole:"UX/UI 설계, 화면 흐름, 프로토타입 구현", fTimeT:"기간", fTime:"2026년 9월 21일 시작", fTeamT:"팀", fToolT:"도구 / 기술", fStatT:"상태", fStat:"작동하는 프로토타입", confirm:"확인 필요", todo:"작성 예정",
+    hSolved:"해결한 문제", svP:"TopTrip을 만들고 시험하며 실제로 겪은 문제입니다. 고치기 전에 원인부터 찾았습니다.", svAlso:"그 밖에", svLp:"문제", svLc:"원인", svLf:"해결", svLr:"결과", sv1t:"콘솔에서 고친 내용이 폰에 늦게 반영됨", sv1p:"사진·일정을 바꿔도 앱을 다시 불러와야 보였습니다.", sv1f:"폰마다 보고 있는 여행을 구독하고, 콘솔에서 저장하면 그 여행을 보는 폰만 약 1초 뒤 새로 받습니다.", sv1r:"서버 테스트를 통과하고 로컬에서 확인했으며, 운영 배포를 앞두고 있습니다.", sv2t:"앱이 없는 고객은 출석 체크가 안 됨", sv2p:"출석 인원을 앱에 참여한 고객만 셌습니다.", sv2f:"사무실이 콘솔에 이름·전화번호 명단을 붙여 넣으면, 앱이 참여 고객과 합쳐 중복을 없애고 이름을 누르면 바로 전화합니다.", sv2r:"사무실 확인을 마쳤고, 명단이 없는 여행은 예전처럼 동작합니다.", sv3t:"여행 하나를 추가하려면 앱 업데이트가 필요함", sv3p:"여행 33개가 앱 코드에 들어 있었습니다.", sv3f:"여행을 서버로 옮겨 초안·공개·숨김 상태를 두고, 기존 33개는 한 번만 자동 이전했으며, 내장 데이터는 비상용으로만 남겼습니다.", sv3r:"앱 업데이트 없이 콘솔에서 여행을 추가하고 공개합니다.", sv4t:"저장 중 서버가 꺼지면 기록이 사라질 수 있음", sv4c:"동시 저장이 아니었습니다. 반쪽 파일이 읽기에 실패하면 빈 목록으로 시작하고, 다음 저장 때 실제 기록을 덮어쓰는 연쇄가 원인이었습니다.", sv4f:"임시 파일에 쓴 뒤 바꿔 끼우는 저장 함수 하나를 모든 저장소에 적용해, 파일이 늘 옛 버전이나 새 버전 중 하나로 남게 했습니다.", sv4r:"과한 DB 이전 없이 해결했고, 배포 후 서버 테스트를 통과했습니다.", sv5t:"여행 다시보기에서 해외 사진이 엉뚱한 날짜에 붙음", sv5c:"사진 시각을 여행지가 아닌 휴대폰의 현재 시간대로 판단했습니다.", sv5f:"관광지 좌표로 여행지 시간대(서머타임 포함)를 계산하고, 날별 사진 범위를 UTC 기준으로 맞췄습니다.", sv5r:"시간대 설정이 다른 폰에서도 같은 날짜가 나오는지 테스트했습니다.", sv6t:"지도 위 버스 아이콘이 뒤집히고 한 바퀴 돎", sv6c:"이미지 회전만으로는 좌우를 표현할 수 없고, ±180° 경계에서 긴 쪽으로 돌았습니다.", sv6f:"기울기는 최대 ±80°로 두고, 진행 방향이 90°를 넘으면 좌우를 반전한 뒤 기울여 좌우 전환이 한 번에 뒤집히게 했습니다.", sva1:"경로 조회는 서버를 거치며 하루 한도와 캐시를 적용해 유료 지도 API 과금을 막고, 한도를 넘으면 간단한 곡선으로 대신 그립니다.", sva2:"로그인 시도 제한, 직원 로그인 강제 해제, 백업 암호화를 넣었습니다.", sva3:"로그인 배경 영상을 17.4MB에서 2.5MB로 줄였습니다.", sva4:"37개 파일에 흩어진 색 코드 321곳을 색 토큰 파일 하나로 모아 다크모드에 대비했습니다.", sva5:"아이콘 버튼에 낭독 이름, 한 줄 글자에 배율 상한, 작은 버튼에 넓은 터치 영역을 넣었습니다.", sva6:"다른 창작자의 캐릭터와 너무 닮은 마스코트를 회사 로고에서 출발한 독자 캐릭터 3종으로 바꿨습니다.",
     hProblem:"문제", hUsers:"사용자", hDec:"주요 설계 결정", hDemo:"기능 데모", hTech:"기술 접근", hLim:"한계",
     p1:"여행 일정이 바뀌면 참여자가 업데이트를 놓치기 쉽습니다.", p2:"낯선 여행지에서 집합 장소, 시간, 가이드 연락 방법을 빠르게 찾기 어렵습니다.", p3:"가이드는 출석, 공지, 위치 확인을 서로 다른 도구로 관리해야 할 수 있습니다.",
     join:"모든 사용자는 여행 코드로 참가하며 시작합니다.",
@@ -580,7 +594,7 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
     pp1:"앱 화면", pp2:"서버 데이터", pp3:"다른 고객·가이드 기기",
     me:"제가 한 일", meP:"요구사항을 정의하고, 디자인을 결정하고, 기능을 통합하고, 실제 기기에서 디버깅과 테스트를 했습니다.",
     ai:"AI의 도움", aiP:"제가 정한 사양으로 코드 초안을 작성했습니다. 결과물은 제가 검토하고 수정하고 테스트했습니다.",
-    l1:"고령 사용자 대상 실사용 검증", l2:"접근성, 글씨 크기, 터치 영역", l3:"인증과 권한 관리, 데이터 보안·개인정보", l4:"오프라인·불안정한 네트워크 대응", l5:"운영 안정성, 모니터링, 유지보수",
+    l1:"실제 여행에서 연령대 높은 고객과 시험하기 전", l2:"푸시 알림과 Face ID는 개발 빌드에서 아직 확인 전", l3:"관리자 콘솔 접근 제한과 가이드 개인 계정 필요", l4:"위치 공유는 출시 전에 약관, 동의, 기록 준비 필요", l5:"백업 복원 연습 전",
     honest:"이 프로젝트는 실제 기기에서 동작하는 프로토타입이며, 정식 고객 운영과 대규모 사용성 검증을 완료한 서비스는 아닙니다."
   };
   var EN={}, nodes=document.querySelectorAll("[data-i18n]");
