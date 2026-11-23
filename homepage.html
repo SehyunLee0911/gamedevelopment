@@ -224,6 +224,9 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
 .zoom:hover{transform:translateY(-2px); box-shadow:0 6px 18px rgba(32,39,51,.12)}
 .zoom:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 .zoom img{display:block; width:100%; height:auto}
+.tools-shots{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.tools-shots .zoom:first-child{grid-column:1/-1}
+.to-dl{margin:0}.to-dl dt{font-size:.8125rem; font-weight:600; color:var(--muted)}.to-dl dd{margin:0}
 .lb{border:0; padding:0; background:transparent; max-width:min(96vw,1100px); max-height:94vh; overflow:visible}
 .lb::backdrop{background:rgba(20,24,31,.86)}
 .lb img{display:block; max-width:min(96vw,1100px); width:auto; height:auto; border-radius:8px; margin:auto; background:#fff}
@@ -342,6 +345,17 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
       </a>
 
       
+
+      <article class="card card--wide card--split">
+        <div class="card__media"><div class="tools-shots"><button type="button" class="zoom" data-full="assets/img/tools/tool_hubfull.webp" aria-label="Start page in the admin view: four staff tools, four admin tools, a notice bar, who is online and this week’s departures (open full size)"><img src="assets/img/tools/tool_hub_t.webp" width="800" height="500" alt="Start page in the admin view: four staff tools, four admin tools, a notice bar, who is online and this week’s departures" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/tools/tool_code.webp" aria-label="Itinerary code generator: day-by-day form on the left, live itinerary preview on the right (open full size)"><img src="assets/img/tools/tool_code_t.webp" width="800" height="500" alt="Itinerary code generator: day-by-day form on the left, live itinerary preview on the right" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/tools/tool_ppt.webp" aria-label="Print itinerary editor: page list and settings beside a live page preview (open full size)"><img src="assets/img/tools/tool_ppt_t.webp" width="800" height="500" alt="Print itinerary editor: page list and settings beside a live page preview" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/tools/tool_status.webp" aria-label="Server status: each service, disk and memory use, and certificate expiry dates (open full size)"><img src="assets/img/tools/tool_status_t.webp" width="800" height="500" alt="Server status: each service, disk and memory use, and certificate expiry dates" loading="lazy"></button><button type="button" class="zoom" data-full="assets/img/tools/tool_mail.webp" aria-label="Mail send log: who sent which itinerary to whom, with failures explained in plain words (open full size)"><img src="assets/img/tools/tool_mail_t.webp" width="800" height="500" alt="Mail send log: who sent which itinerary to whom, with failures explained in plain words" loading="lazy"></button></div></div>
+        <div class="card__body">
+          <p class="meta">Internal Tools · Workflow UX · AI-Assisted Development</p>
+          <h3 class="card-title" data-i18n="toT">Travel Agency Internal Tools</h3>
+          <p class="card__text" data-i18n="toCard">Eight web tools for a travel agency behind one company sign-in. Staff get four: itinerary emails to customers, a website itinerary editor, an HTML itinerary generator and a print-ready itinerary editor. The admin view adds server status, a mail send log, sign-in management and the app console, plus a notice bar and this week’s departures. They replace steps the team used to do by hand across several programs.</p>
+          <dl class="to-dl"><div><dt data-i18n="myRole">My role</dt><dd data-i18n="toRole">Watched the team’s daily work, chose what to automate, designed every screen and wrote the requirements, then tested with staff. The code was written with Claude Code.</dd></div></dl>
+          <p class="game__note" data-i18n="toNote">Shown with sample names, emails and departures. Internal addresses are removed. Select an image to see it full size.</p>
+        </div>
+      </article>
 
       <article class="card card--wide card--split">
         <div class="card__media">
@@ -534,6 +548,7 @@ footer{padding-block:28px 40px; border-top:1px solid var(--line); color:var(--mu
     ttCard:"TopTrip은 단체여행 고객과 가이드가 일정, 집합 장소, 공지 및 출석 현황을 한곳에서 확인하고 관리할 수 있도록 만든 모바일 앱 프로토타입입니다.",
     readCase:"사례 연구 보기", f1:"원본 PDF", f2:"편집 화면",
     docCard:"여행 일정 PDF를 편집하고 Excel·PowerPoint로 변환하는 도구입니다. 실제 입력, 편집 화면, 출력물로 보여 드립니다.",
+    toT:"여행사 사내 도구", toCard:"여행사 웹 도구 8개를 회사 계정 로그인 하나로 묶었습니다. 직원용은 고객 일정표 메일, 웹사이트 일정표 편집기, HTML 일정표 생성기, 인쇄용 일정표 편집기 4개입니다. 관리자 화면에는 서버 상태, 메일 발송 기록, 접속자 관리, 앱 관리 콘솔과 함께 공지 한 줄, 이번 주 출발 목록이 더해집니다. 여러 프로그램을 오가며 손으로 하던 작업을 대신합니다.", toRole:"팀의 일상 업무를 관찰해 자동화할 부분을 고르고, 모든 화면을 설계하고 요구사항을 정리한 뒤 직원들과 테스트했습니다. 코드는 Claude Code로 작성했습니다.", toNote:"이름, 이메일, 출발 목록은 예시 데이터이고 내부 주소는 지웠습니다. 이미지를 누르면 크게 볼 수 있습니다.",
     lmT:"리틀 문방구 캠페인", lmRed:"분식 (빨강)", lmY:"치즈 (노랑)", lmB:"젤리 (하늘색)", lmCard:"리틀 문방구의 말랑이 제품을 위한 포스터 3종입니다. 빨간 분식 메뉴판, 노란 크런치, 하늘색 젤리 포스터를 한국어·영어로 만들었습니다.",
     tcT:"여행 캠페인 디자인", tcAd:"신문 광고", tcSn:"SNS 게시물", tcIt:"일정표", tcCard:"한인 여행사의 신문 광고, 일정표, SNS 게시물입니다. 장소, 날짜, 가격은 공개 전에 검수합니다. 이미지를 누르면 크게 볼 수 있어요.",
     gdCard:"게임 개발", gdText:"게임 시스템을 직접 구현한 Unity 프로젝트 3개입니다.", seeGames:"게임 보기",
